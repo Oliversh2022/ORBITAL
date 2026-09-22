@@ -36,6 +36,8 @@ pnpm dev
 - `/iching.html`：易经六爻
 - `/design-preview.html`：视觉方向预览
 - `/ghost-fibers`：动态背景单独预览
+- `/404.html`：统一 404 页面
+- `/robots.txt`、`/sitemap.xml`：基础搜索引擎入口
 - `/assets/*`：页面使用的脚本、样式与图片资源
 
 ### 目录
@@ -87,6 +89,8 @@ The port contract is now explicit:
 - `/iching.html`: I Ching reading
 - `/design-preview.html`: visual direction preview
 - `/ghost-fibers`: standalone animated-background preview
+- `/404.html`: shared not-found page
+- `/robots.txt` and `/sitemap.xml`: basic search-engine entry points
 - `/assets/*`: page scripts, styles, and image assets
 
 ### Repository scope
