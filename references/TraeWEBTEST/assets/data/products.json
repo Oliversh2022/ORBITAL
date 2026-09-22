@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "catalogStatus": "visual-baseline",
+  "defaultLocale": "zh-CN",
+  "currency": "CNY",
+  "products": [
+    {
+      "id": "orbital-ember-guard",
+      "slug": "ember-guard",
+      "name": "余烬守护",
+      "nameEn": "Ember Guard",
+      "description": "黑曜石与红玛瑙，守护边界与心力。",
+      "descriptionEn": "Obsidian and red agate for boundaries, grounding, and inner strength.",
+      "price": 1280,
+      "currency": "CNY",
+      "materials": ["黑曜石", "红玛瑙", "虎眼石"],
+      "intentions": ["守护", "边界", "心力"],
+      "frontImage": "/assets/ember-guard.png",
+      "backImage": "/assets/ember-guard.png",
+      "featured": true,
+      "availability": "preview",
+      "sellable": false
+    },
+    {
+      "id": "orbital-stillwater",
+      "slug": "stillwater",
+      "name": "静水",
+      "nameEn": "Stillwater",
+      "description": "海蓝宝与月光石，平复情绪之流。",
+      "descriptionEn": "Aquamarine and moonstone for calm, clarity, and a gentler emotional current.",
+      "price": 980,
+      "currency": "CNY",
+      "materials": ["海蓝宝", "月光石", "烟晶"],
+      "intentions": ["平静", "情绪", "清晰"],
+      "frontImage": "/assets/stillwater.png",
+      "backImage": "/assets/stillwater.png",
+      "featured": true,
+      "availability": "preview",
+      "sellable": false
+    },
+    {
+      "id": "orbital-the-stargazer",
+      "slug": "the-stargazer",
+      "name": "轨道之星",
+      "nameEn": "The Stargazer",
+      "description": "紫水晶与黄水晶，接引直觉与丰盛。",
+      "descriptionEn": "Amethyst and citrine for intuition, imagination, and a sense of abundance.",
+      "price": 1580,
+      "currency": "CNY",
+      "materials": ["紫水晶", "黄水晶", "白水晶"],
+      "intentions": ["直觉", "丰盛", "方向"],
+      "frontImage": "/assets/orbital-hero.png",
+      "backImage": "/assets/orbital-hero.png",
+      "featured": true,
+      "availability": "preview",
+      "sellable": false
+    }
+  ]
+}
