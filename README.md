@@ -99,4 +99,3 @@ docs/                          Project audit and follow-up planning
 ```
 
 `node_modules`, local environment files, certificates/private keys, and the deleted `apps` business source are intentionally excluded. If commerce, accounts, orders, or payments are restored later, rebuild those service boundaries and production deployment plans on top of this baseline.
-

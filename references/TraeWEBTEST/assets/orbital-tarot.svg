@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 800" role="img" aria-labelledby="title desc">
+  <title id="title">ORBITAL tarot card</title>
+  <desc id="desc">An original geometric card design with a moon, orbit, and quiet star field.</desc>
+  <defs>
+    <radialGradient id="g" cx="50%" cy="38%" r="68%"><stop offset="0" stop-color="#24203b"/><stop offset="1" stop-color="#090811"/></radialGradient>
+    <linearGradient id="l" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0d797"/><stop offset="1" stop-color="#a98adb"/></linearGradient>
+  </defs>
+  <rect width="480" height="800" rx="28" fill="url(#g)"/>
+  <rect x="22" y="22" width="436" height="756" rx="18" fill="none" stroke="#f0d797" stroke-opacity=".7"/>
+  <rect x="36" y="36" width="408" height="728" rx="14" fill="none" stroke="#f5f0ea" stroke-opacity=".14"/>
+  <circle cx="240" cy="370" r="124" fill="none" stroke="url(#l)" stroke-width="2"/>
+  <ellipse cx="240" cy="370" rx="176" ry="70" fill="none" stroke="#f0d797" stroke-opacity=".55" transform="rotate(-18 240 370)"/>
+  <path d="M276 274a105 105 0 1 0 0 192 88 88 0 1 1 0-192Z" fill="#eee7dc" opacity=".92"/>
+  <g fill="#f0d797"><circle cx="111" cy="190" r="3"/><circle cx="368" cy="226" r="2"/><circle cx="347" cy="532" r="3"/><circle cx="126" cy="565" r="2"/><path d="m240 154 5 12 12 5-12 5-5 12-5-12-12-5 12-5Z"/></g>
+  <text x="240" y="675" text-anchor="middle" fill="#f5f0ea" font-size="28" letter-spacing="10" font-family="Georgia,serif">ORBITAL</text>
+  <text x="240" y="714" text-anchor="middle" fill="#f0d797" font-size="14" letter-spacing="6" font-family="Arial,sans-serif">REFLECTION DECK</text>
+</svg>

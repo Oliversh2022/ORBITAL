@@ -1,0 +1,34 @@
+# Dependencies and build output
+node_modules/
+apps/
+.next/
+.next-build/
+.next-orbital/
+out/
+dist/
+.medusa/
+
+# Local environment and secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Tooling and logs
+*.log
+.DS_Store
+Thumbs.db
+*.disabled
+
+# Certificates and private keys
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.pfx
+
+# Test artifacts
+coverage/
+playwright-report/
+test-results/
