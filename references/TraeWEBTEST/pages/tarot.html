@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塔罗牌阵</title>
+        <link rel="stylesheet" href="../assets/orbital-apple.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--orbital-background);
+    --color-foreground: var(--orbital-foreground);
+    --color-card: var(--orbital-card);
+    --color-card-foreground: var(--orbital-card-foreground);
+    --color-popover: var(--orbital-popover);
+    --color-popover-foreground: var(--orbital-popover-foreground);
+    --color-primary: var(--orbital-primary);
+    --color-primary-foreground: var(--orbital-primary-foreground);
+    --color-secondary: var(--orbital-secondary);
+    --color-secondary-foreground: var(--orbital-secondary-foreground);
+    --color-muted: var(--orbital-muted);
+    --color-muted-foreground: var(--orbital-muted-foreground);
+    --color-accent: var(--orbital-accent);
+    --color-accent-foreground: var(--orbital-accent-foreground);
+    --color-border: var(--orbital-border);
+    --color-input: var(--orbital-input);
+    --color-ring: var(--orbital-ring);
+    --radius-sm: var(--orbital-radius-sm);
+    --radius-md: var(--orbital-radius-md);
+    --radius-lg: var(--orbital-radius-lg);
+    --radius-xl: var(--orbital-radius-xl);
+  }
+  @layer base {
+    body { background: var(--orbital-background); color: var(--orbital-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--orbital-background); }
+      .text-background { color: var(--orbital-background); }
+      .border-background { border-color: var(--orbital-background); }
+      .ring-background { --tw-ring-color: var(--orbital-background); }
+      .bg-foreground { background-color: var(--orbital-foreground); }
+      .text-foreground { color: var(--orbital-foreground); }
+      .border-foreground { border-color: var(--orbital-foreground); }
+      .ring-foreground { --tw-ring-color: var(--orbital-foreground); }
+      .bg-card { background-color: var(--orbital-card); }
+      .text-card { color: var(--orbital-card); }
+      .border-card { border-color: var(--orbital-card); }
+      .ring-card { --tw-ring-color: var(--orbital-card); }
+      .bg-card-foreground { background-color: var(--orbital-card-foreground); }
+      .text-card-foreground { color: var(--orbital-card-foreground); }
+      .border-card-foreground { border-color: var(--orbital-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--orbital-card-foreground); }
+      .bg-popover { background-color: var(--orbital-popover); }
+      .text-popover { color: var(--orbital-popover); }
+      .border-popover { border-color: var(--orbital-popover); }
+      .ring-popover { --tw-ring-color: var(--orbital-popover); }
+      .bg-popover-foreground { background-color: var(--orbital-popover-foreground); }
+      .text-popover-foreground { color: var(--orbital-popover-foreground); }
+      .border-popover-foreground { border-color: var(--orbital-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--orbital-popover-foreground); }
+      .bg-primary { background-color: var(--orbital-primary); }
+      .text-primary { color: var(--orbital-primary); }
+      .border-primary { border-color: var(--orbital-primary); }
+      .ring-primary { --tw-ring-color: var(--orbital-primary); }
+      .bg-primary-foreground { background-color: var(--orbital-primary-foreground); }
+      .text-primary-foreground { color: var(--orbital-primary-foreground); }
+      .border-primary-foreground { border-color: var(--orbital-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--orbital-primary-foreground); }
+      .bg-secondary { background-color: var(--orbital-secondary); }
+      .text-secondary { color: var(--orbital-secondary); }
+      .border-secondary { border-color: var(--orbital-secondary); }
+      .ring-secondary { --tw-ring-color: var(--orbital-secondary); }
+      .bg-secondary-foreground { background-color: var(--orbital-secondary-foreground); }
+      .text-secondary-foreground { color: var(--orbital-secondary-foreground); }
+      .border-secondary-foreground { border-color: var(--orbital-secondary-foreground); }
+      .ring-secondary-foreground { --tw-ring-color: var(--orbital-secondary-foreground); }
+      .bg-muted { background-color: var(--orbital-muted); }
+      .text-muted { color: var(--orbital-muted); }
+      .border-muted { border-color: var(--orbital-muted); }
+      .ring-muted { --tw-ring-color: var(--orbital-muted); }
+      .bg-muted-foreground { background-color: var(--orbital-muted-foreground); }
+      .text-muted-foreground { color: var(--orbital-muted-foreground); }
+      .border-muted-foreground { border-color: var(--orbital-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--orbital-muted-foreground); }
+      .bg-accent { background-color: var(--orbital-accent); }
+      .text-accent { color: var(--orbital-accent); }
+      .border-accent { border-color: var(--orbital-accent); }
+      .ring-accent { --tw-ring-color: var(--orbital-accent); }
+      .bg-accent-foreground { background-color: var(--orbital-accent-foreground); }
+      .text-accent-foreground { color: var(--orbital-accent-foreground); }
+      .border-accent-foreground { border-color: var(--orbital-accent-foreground); }
+      .ring-accent-foreground { --tw-ring-color: var(--orbital-accent-foreground); }
+      .bg-border { background-color: var(--orbital-border); }
+      .text-border { color: var(--orbital-border); }
+      .border-border { border-color: var(--orbital-border); }
+      .ring-border { --tw-ring-color: var(--orbital-border); }
+      .bg-input { background-color: var(--orbital-input); }
+      .text-input { color: var(--orbital-input); }
+      .border-input { border-color: var(--orbital-input); }
+      .ring-input { --tw-ring-color: var(--orbital-input); }
+      .bg-ring { background-color: var(--orbital-ring); }
+      .text-ring { color: var(--orbital-ring); }
+      .border-ring { border-color: var(--orbital-ring); }
+      .ring-ring { --tw-ring-color: var(--orbital-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/JellyRadio.css" />
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <style>.orbital-fibers-frame{position:fixed;z-index:0;inset:0;width:100%;height:100%;border:0;pointer-events:none}body{background:transparent!important}body>main{position:relative;z-index:1;background:transparent}</style>
+    <iframe class="orbital-fibers-frame" src="ghost-fibers.html" title="Animated fiber background" aria-hidden="true" tabindex="-1"></iframe>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const cardBackHtml = () => `
+            <img src="../assets/orbital-tarot.svg" alt="" class="w-full h-full object-cover" aria-hidden="true" loading="lazy" />`;
+
+        const cardFaceSvg = (card) => `
+            <svg viewBox="0 0 200 300" class="w-full h-full" aria-hidden="true">
+                <rect width="200" height="300" fill="var(--orbital-card)" rx="12"/>
+                <rect x="10" y="10" width="180" height="280" fill="none" stroke="var(--orbital-primary)" stroke-width="1" opacity="0.5" rx="8"/>
+                <text x="100" y="48" text-anchor="middle" fill="var(--orbital-primary)" font-size="14" font-family="var(--orbital-font-serif)">${card.roman}</text>
+                <g transform="translate(100,150)">${card.symbol}</g>
+                <text x="100" y="270" text-anchor="middle" fill="var(--orbital-foreground)" font-size="12" font-family="var(--orbital-font-sans)">${card.num}. ${card.cn}</text>
+            </svg>`;
+
+        const cards = [
+            { num: 0, roman: "0", cn: "愚人", en: "The Fool", keywords: ["开端", "自由", "冒险"], meaning: "新的旅程即将开始。放下预设，跟随直觉，拥抱未知的可能。", symbol: `<circle r="25" fill="var(--orbital-primary)" opacity="0.2"/><circle r="8" fill="var(--orbital-primary)"/><path d="M-40 50 q20 -30 40 0 q20 30 40 0" stroke="var(--orbital-accent)" stroke-width="2" fill="none"/><circle cy="25" r="6" fill="var(--orbital-foreground)"/>` },
+            { num: 1, roman: "I", cn: "魔术师", en: "The Magician", keywords: ["创造", "意志", "资源"], meaning: "你已拥有实现目标所需的一切资源。专注意志，将想法化为行动。", symbol: `<path d="M-25 -10 C-35 -25 -15 -25 -5 -10 C5 -25 25 -25 35 -10 C45 5 25 5 15 -10 C5 5 -15 5 -25 -10 Z" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><line x1="0" y1="-5" x2="0" y2="40" stroke="var(--orbital-accent)" stroke-width="3"/><rect x="-20" y="40" width="40" height="8" rx="2" fill="var(--orbital-primary)" opacity="0.3"/>` },
+            { num: 2, roman: "II", cn: "女祭司", en: "The High Priestess", keywords: ["直觉", "神秘", "潜意识"], meaning: "倾听内在的声音，答案藏在沉默与直觉之中。相信你的第六感。", symbol: `<path d="M-20 -20 A25 25 0 1 1 -20 20 A20 20 0 1 0 -20 -20" fill="var(--orbital-accent)" opacity="0.3"/><rect x="-30" y="-35" width="60" height="70" fill="none" stroke="var(--orbital-primary)" stroke-width="1" opacity="0.5"/><circle r="5" fill="var(--orbital-primary)"/>` },
+            { num: 3, roman: "III", cn: "皇后", en: "The Empress", keywords: ["丰饶", "母性", "感官"], meaning: "丰盛与滋养的能量围绕着你。善待自己，让创造力自然流动。", symbol: `<path d="M0 15 C-20 -10 -35 10 0 35 C35 10 20 -10 0 15" fill="var(--orbital-primary)" opacity="0.25"/><path d="M0 35 L0 55 M-8 45 L0 55 M8 45 L0 55" stroke="var(--orbital-accent)" stroke-width="2" fill="none"/>` },
+            { num: 4, roman: "IV", cn: "皇帝", en: "The Emperor", keywords: ["权威", "结构", "稳定"], meaning: "建立秩序与边界，以稳定的结构支撑长远目标。承担责任，展现领导力。", symbol: `<path d="M-25 30 L-25 -10 L25 -10 L25 30" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><path d="M-30 -15 L-15 -25 L0 -15 L15 -25 L30 -15" fill="none" stroke="var(--orbital-accent)" stroke-width="2"/>` },
+            { num: 5, roman: "V", cn: "教皇", en: "The Hierophant", keywords: ["传统", "信仰", "教导"], meaning: "传统与教导带来指引。向经验学习，也尊重内心的信念体系。", symbol: `<circle r="12" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><line x1="0" y1="12" x2="0" y2="40" stroke="var(--orbital-primary)" stroke-width="2"/><path d="M-15 25 L15 25 M-8 32 L8 32" stroke="var(--orbital-accent)" stroke-width="2"/>` },
+            { num: 6, roman: "VI", cn: "恋人", en: "The Lovers", keywords: ["选择", "爱情", "和谐"], meaning: "重要的选择摆在眼前。倾听内心真实的声音，寻找价值观的和谐。", symbol: `<circle cy="-30" r="8" fill="var(--orbital-primary)" opacity="0.6"/><circle cx="-20" cy="20" r="8" fill="var(--orbital-accent)" opacity="0.4"/><circle cx="20" cy="20" r="8" fill="var(--orbital-accent)" opacity="0.4"/><path d="M0 -22 L-20 12 M0 -22 L20 12" stroke="var(--orbital-primary)" stroke-width="1" opacity="0.5"/>` },
+            { num: 7, roman: "VII", cn: "战车", en: "The Chariot", keywords: ["意志", "胜利", "掌控"], meaning: "意志力将带领你穿越对立与冲突。保持专注，胜利属于坚持的人。", symbol: `<path d="M-30 25 L30 25 L25 45 L-25 45 Z" fill="var(--orbital-primary)" opacity="0.25"/><circle cx="-35" cy="25" r="8" fill="var(--orbital-accent)"/><circle cx="35" cy="25" r="8" fill="var(--orbital-accent)"/><path d="M-10 -10 L10 -10 L5 25 L-5 25 Z" fill="var(--orbital-primary)" opacity="0.4"/>` },
+            { num: 8, roman: "VIII", cn: "力量", en: "Strength", keywords: ["勇气", "耐心", "内在力量"], meaning: "真正的力量来自温柔与耐心。以勇气面对本能，用同理心化解阻力。", symbol: `<circle r="22" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><path d="M-10 -5 Q0 -15 10 -5 Q15 5 5 10 Q-5 15 -10 5 Q-15 -5 -5 -10" fill="none" stroke="var(--orbital-accent)" stroke-width="2"/><circle r="4" fill="var(--orbital-foreground)"/>` },
+            { num: 9, roman: "IX", cn: "隐者", en: "The Hermit", keywords: ["内省", "独处", "指引"], meaning: "独处与内省是此刻的良药。退后一步，让内在的智慧为你点亮前路。", symbol: `<line x1="0" y1="-40" x2="0" y2="40" stroke="var(--orbital-primary)" stroke-width="3"/><circle cy="-25" r="10" fill="var(--orbital-accent)" opacity="0.3"/><circle cy="-25" r="4" fill="var(--orbital-primary)"/>` },
+            { num: 10, roman: "X", cn: "命运之轮", en: "Wheel of Fortune", keywords: ["变化", "周期", "命运"], meaning: "变化正在发生，周期转动带来新的机遇。顺势而为，相信生命的节奏。", symbol: `<circle r="35" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><circle r="25" fill="none" stroke="var(--orbital-accent)" stroke-width="1" stroke-dasharray="4 4"/><circle r="8" fill="var(--orbital-primary)" opacity="0.5"/><path d="M0 -45 L0 -55 M0 45 L0 55 M-45 0 L-55 0 M45 0 L55 0" stroke="var(--orbital-accent)" stroke-width="2"/>` },
+            { num: 11, roman: "XI", cn: "正义", en: "Justice", keywords: ["公正", "平衡", "因果"], meaning: "公正与平衡是核心课题。诚实面对因果，为自己的选择负起责任。", symbol: `<line x1="0" y1="-35" x2="0" y2="35" stroke="var(--orbital-primary)" stroke-width="2"/><line x1="-25" y1="-10" x2="25" y2="-10" stroke="var(--orbital-accent)" stroke-width="2"/><circle cx="-15" cy="-5" r="5" fill="var(--orbital-primary)" opacity="0.5"/><circle cx="15" cy="-5" r="5" fill="var(--orbital-primary)" opacity="0.5"/>` },
+            { num: 12, roman: "XII", cn: "倒吊人", en: "The Hanged Man", keywords: ["牺牲", "换个角度", "等待"], meaning: "暂停与牺牲带来全新的视角。放下执着，等待转机自然浮现。", symbol: `<line x1="0" y1="-40" x2="0" y2="10" stroke="var(--orbital-primary)" stroke-width="2"/><circle cy="20" r="8" fill="var(--orbital-accent)" opacity="0.5"/><path d="M0 28 L0 50 M-12 38 L12 38" stroke="var(--orbital-foreground)" stroke-width="2"/>` },
+            { num: 13, roman: "XIII", cn: "死神", en: "Death", keywords: ["结束", "转化", "重生"], meaning: "一个阶段正在结束，转化与重生的能量在涌动。放下旧有，迎接新生。", symbol: `<path d="M-20 -30 L20 30" stroke="var(--orbital-primary)" stroke-width="3"/><path d="M20 -30 L-5 -5" stroke="var(--orbital-accent)" stroke-width="2"/><circle r="10" fill="none" stroke="var(--orbital-foreground)" stroke-width="2" opacity="0.6"/>` },
+            { num: 14, roman: "XIV", cn: "节制", en: "Temperance", keywords: ["平衡", "调和", "耐心"], meaning: "平衡与调和是关键。以耐心整合对立面，找到流动中的和谐。", symbol: `<path d="M-15 -20 L15 20" stroke="var(--orbital-primary)" stroke-width="2"/><path d="M-20 10 L-10 25 L-25 25 Z" fill="var(--orbital-accent)" opacity="0.4"/><path d="M20 -10 L10 -25 L25 -25 Z" fill="var(--orbital-accent)" opacity="0.4"/>` },
+            { num: 15, roman: "XV", cn: "恶魔", en: "The Devil", keywords: ["束缚", "欲望", "物质"], meaning: "看清束缚你的欲望与执念。觉察即是自由的开端，选择打破枷锁。", symbol: `<path d="M-20 -25 L-10 0 L10 0 L20 -25" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><circle r="10" fill="var(--orbital-accent)" opacity="0.3"/><path d="M-15 15 Q0 35 15 15" fill="none" stroke="var(--orbital-foreground)" stroke-width="2" opacity="0.5"/>` },
+            { num: 16, roman: "XVI", cn: "高塔", en: "The Tower", keywords: ["突变", "觉醒", "打破旧有"], meaning: "突如其来的变化打破旧有结构。虽然剧烈，却为真实的觉醒腾出空间。", symbol: `<path d="M-20 40 L-15 -20 L15 -20 L20 40 Z" fill="var(--orbital-primary)" opacity="0.2"/><path d="M-5 -20 L5 -40 L15 -25 L5 -25 L5 -15" fill="none" stroke="var(--orbital-accent)" stroke-width="2"/>` },
+            { num: 17, roman: "XVII", cn: "星星", en: "The Star", keywords: ["希望", "灵感", "宁静"], meaning: "希望与灵感正在回归。保持信心，宁静中将孕育新的可能性。", symbol: `<path d="M-15 -10 L0 10 L15 -10" fill="none" stroke="var(--orbital-primary)" stroke-width="2"/><circle cx="-20" cy="-25" r="4" fill="var(--orbital-primary)"/><circle cx="20" cy="-25" r="3" fill="var(--orbital-accent)"/><circle cy="-35" r="5" fill="var(--orbital-primary)" opacity="0.5"/>` },
+            { num: 18, roman: "XVIII", cn: "月亮", en: "The Moon", keywords: ["幻象", "潜意识", "不安"], meaning: "幻象与不安浮现，潜意识在向你传递讯息。穿越迷雾，相信直觉的指引。", symbol: `<path d="M-15 -20 A20 20 0 1 1 -15 20 A15 15 0 1 0 -15 -20" fill="var(--orbital-accent)" opacity="0.3"/><circle cx="-25" cy="25" r="5" fill="var(--orbital-primary)" opacity="0.5"/><circle cx="25" cy="25" r="5" fill="var(--orbital-foreground)" opacity="0.3"/>` },
+            { num: 19, roman: "XIX", cn: "太阳", en: "The Sun", keywords: ["喜悦", "成功", "活力"], meaning: "喜悦、成功与活力的能量充沛。坦诚地拥抱当下，光芒将照亮前路。", symbol: `<circle r="20" fill="var(--orbital-primary)" opacity="0.2"/><circle r="8" fill="var(--orbital-primary)"/><g stroke="var(--orbital-primary)" stroke-width="2"><line x1="0" y1="-32" x2="0" y2="-24"/><line x1="0" y1="24" x2="0" y2="32"/><line x1="-32" y1="0" x2="-24" y2="0"/><line x1="24" y1="0" x2="32" y2="0"/></g><circle cy="28" r="5" fill="var(--orbital-accent)"/>` },
+            { num: 20, roman: "XX", cn: "审判", en: "Judgement", keywords: ["觉醒", "评估", "重生"], meaning: "觉醒与评估的时刻来临。回应内心的召唤，从过去的经验中重生。", symbol: `<path d="M-25 -30 Q0 -45 25 -30" fill="none" stroke="var(--orbital-accent)" stroke-width="2"/><path d="M-20 0 L20 0 L15 30 L-15 30 Z" fill="var(--orbital-primary)" opacity="0.25"/><line x1="0" y1="-30" x2="0" y2="0" stroke="var(--orbital-primary)" stroke-width="2"/>` },
+            { num: 21, roman: "XXI", cn: "世界", en: "The World", keywords: ["完成", "圆满", "成就"], meaning: "一个完整的周期即将圆满达成。庆祝成就，同时也准备迎接新的循环。", symbol: `<circle r="35" fill="none" stroke="var(--orbital-primary)" stroke-width="2" stroke-dasharray="2 4"/><circle r="8" fill="var(--orbital-accent)" opacity="0.4"/><path d="M-8 15 Q0 30 8 15 Q0 0 -8 15" fill="var(--orbital-primary)" opacity="0.3"/>` }
+        ];
+
+        const gridEl = document.getElementById('grid');
+        const resultPanel = document.getElementById('result-panel');
+        const resultVisual = document.getElementById('result-card-visual');
+        const resultRoman = document.getElementById('result-roman');
+        const resultTitle = document.getElementById('result-title');
+        const resultKeywords = document.getElementById('result-keywords');
+        const resultMeaning = document.getElementById('result-meaning');
+        let selectedIndex = null;
+        let isShuffling = false;
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let audioEnabled = false;
+
+        async function ensureAudio() {
+            if (!audioEnabled && audioCtx && audioCtx.state === 'suspended') {
+                await audioCtx.resume();
+                audioEnabled = true;
+            }
+        }
+
+        function createNoiseBuffer(duration) {
+            const sampleRate = audioCtx.sampleRate;
+            const frames = Math.floor(sampleRate * duration);
+            const buffer = audioCtx.createBuffer(1, frames, sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < frames; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            return buffer;
+        }
+
+        function playNoise(duration, volume = 0.06) {
+            if (!audioCtx) return;
+            const src = audioCtx.createBufferSource();
+            src.buffer = createNoiseBuffer(duration);
+            const gain = audioCtx.createGain();
+            const now = audioCtx.currentTime;
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(volume, now + 0.04);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+            src.connect(gain).connect(audioCtx.destination);
+            src.start();
+        }
+
+        function playShuffleSound() {
+            playNoise(0.35, 0.05);
+            setTimeout(() => playNoise(0.35, 0.05), 280);
+        }
+
+        function playFlipSound() {
+            if (!audioCtx) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = 'sine';
+            const now = audioCtx.currentTime;
+            osc.frequency.setValueAtTime(260, now);
+            osc.frequency.exponentialRampToValueAtTime(720, now + 0.14);
+            gain.gain.setValueAtTime(0, now);
+            gain.gain.linearRampToValueAtTime(0.05, now + 0.02);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+            osc.connect(gain).connect(audioCtx.destination);
+            osc.start();
+            osc.stop(now + 0.2);
+        }
+
+        function playDealSound() {
+            if (!audioCtx) return;
+            const now = audioCtx.currentTime;
+            [440, 554, 659].forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                gain.gain.setValueAtTime(0, now + i * 0.05);
+                gain.gain.linearRampToValueAtTime(0.025, now + i * 0.05 + 0.03);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.35);
+                osc.connect(gain).connect(audioCtx.destination);
+                osc.start(now + i * 0.05);
+                osc.stop(now + i * 0.05 + 0.4);
+            });
+        }
+
+        function renderGrid(opts = {}) {
+            const { entering = false, shuffling = false } = opts;
+            const totalAngle = 90;
+            const step = totalAngle / (cards.length - 1);
+            const start = -totalAngle / 2;
+            gridEl.innerHTML = cards.map((card, index) => {
+                const angle = start + index * step;
+                const extraClass = (entering ? ' entering' : '') + (shuffling ? ' shuffling' : '');
+                return `
+                <button class="fan-card card group perspective text-left${extraClass}" style="--angle:${angle}deg" data-index="${index}" aria-label="塔罗牌 ${card.num} ${card.cn}" role="listitem">
+                    <div class="card-inner relative w-full aspect-tarot rounded-xl shadow-md transition-shadow duration-300 group-hover:shadow-lg">
+                        <div class="card-back absolute inset-0 rounded-xl overflow-hidden border border-border">${cardBackHtml()}</div>
+                        <div class="card-face absolute inset-0 rounded-xl overflow-hidden border border-primary">${cardFaceSvg(card)}</div>
+                    </div>
+                </button>`;
+            }).join('');
+        }
+
+        function selectCard(index) {
+            if (isShuffling) return;
+            ensureAudio();
+            const buttons = gridEl.querySelectorAll('.fan-card');
+            if (selectedIndex === index) {
+                resetSelection();
+                return;
+            }
+            selectedIndex = index;
+            buttons.forEach((btn, i) => {
+                btn.classList.toggle('flipped', i === index);
+                btn.classList.toggle('card-dimmed', i !== index);
+                btn.classList.toggle('selected', i === index);
+            });
+            playFlipSound();
+            showResult(cards[index]);
+        }
+
+        function resetSelection() {
+            selectedIndex = null;
+            gridEl.querySelectorAll('.fan-card').forEach(btn => {
+                btn.classList.remove('flipped', 'card-dimmed', 'selected');
+            });
+            resultPanel.classList.add('hidden');
+        }
+
+        function showResult(card) {
+            resultVisual.innerHTML = cardFaceSvg(card);
+            resultRoman.textContent = card.roman;
+            resultTitle.textContent = `${card.num}. ${card.cn} ${card.en}`;
+            resultKeywords.innerHTML = card.keywords.map(k => `<span class="inline-flex items-center rounded-full border border-border bg-secondary px-3 py-1 text-xs text-secondary-foreground">${k}</span>`).join('');
+            resultMeaning.textContent = card.meaning;
+            resultPanel.classList.remove('hidden');
+            resultPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function shuffleDeck() {
+            if (isShuffling) return;
+            await ensureAudio();
+            isShuffling = true;
+            gridEl.classList.add('is-shuffling');
+            resetSelection();
+            playShuffleSound();
+
+            // Gather into deck
+            gridEl.querySelectorAll('.fan-card').forEach(btn => btn.classList.add('shuffling'));
+            await wait(850);
+
+            // Shuffle array (Fisher-Yates)
+            for (let i = cards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [cards[i], cards[j]] = [cards[j], cards[i]];
+            }
+
+            // Re-render in stacked state then fan out
+            renderGrid({ shuffling: true });
+            gridEl.offsetHeight; // force reflow
+            playShuffleSound();
+            await wait(120);
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    gridEl.querySelectorAll('.fan-card.shuffling').forEach(btn => btn.classList.remove('shuffling'));
+                    gridEl.classList.remove('is-shuffling');
+                    isShuffling = false;
+                });
+            });
+        }
+
+        // Initial entrance: render stacked, then fan out
+        renderGrid({ entering: true });
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                gridEl.querySelectorAll('.fan-card.entering').forEach(btn => btn.classList.remove('entering'));
+                ensureAudio().then(() => playDealSound());
+            });
+        });
+
+        gridEl.addEventListener('click', (e) => {
+            if (isShuffling) return;
+            const cardBtn = e.target.closest('.card');
+            if (!cardBtn) return;
+            selectCard(Number(cardBtn.dataset.index));
+        });
+        document.getElementById('reset-draw').addEventListener('click', () => {
+            resetSelection();
+            document.getElementById('card-grid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+        document.getElementById('shuffle-btn').addEventListener('click', shuffleDeck);
+    });
+    </script>
+    <script>lucide.createIcons();</script>
+<main data-editor-id="editor-node-mu0m2645-2">
+        <style>
+            .font-display { font-family: var(--orbital-font-display); }
+            .perspective { perspective: 1000px; }
+            .card-inner { transform-style: preserve-3d; transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1); }
+            .card.flipped .card-inner { transform: rotateY(180deg); }
+            .card-face, .card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+            .card-face { transform: rotateY(180deg); }
+            .aspect-tarot { aspect-ratio: 2 / 3; }
+            .card-dimmed { opacity: 0.35; }
+
+            /* Fan spread layout */
+            .fan-stage {
+                position: relative;
+                width: 100%;
+                height: 22rem;
+                margin: 0 auto;
+                max-width: 900px;
+            }
+            @media (min-width: 768px) {
+                .fan-stage { height: 32rem; }
+            }
+            .fan-card {
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: 5rem;
+                transform-origin: center bottom;
+                transform: translateX(-50%) rotate(var(--angle)) translateY(var(--radius));
+                transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease, z-index 0s linear;
+                cursor: pointer;
+                background: transparent;
+                border: none;
+                padding: 0;
+                z-index: 1;
+            }
+            .fan-card .card-inner { border-radius: 0.75rem; }
+            .fan-card:hover,
+            .fan-card:focus-visible {
+                z-index: 20;
+                transform: translateX(-50%) rotate(var(--angle)) translateY(calc(var(--radius) - 0.75rem)) scale(1.07);
+                outline: none;
+            }
+            .fan-card.selected {
+                z-index: 30 !important;
+                transform: translateX(-50%) rotate(var(--angle)) translateY(calc(var(--radius) - 1.5rem)) scale(1.12) !important;
+            }
+            .fan-card:focus-visible .card-inner { box-shadow: 0 0 0 2px var(--orbital-ring); }
+
+            /* Entrance & shuffle animations */
+            .fan-card.entering {
+                opacity: 0;
+                transform: translateX(-50%) rotate(0deg) translateY(3rem) scale(0.85) !important;
+            }
+            .fan-card.shuffling {
+                opacity: 1;
+                transform: translateX(-50%) rotate(0deg) translateY(0) scale(0.92) !important;
+                z-index: 1 !important;
+                transition-duration: 0.75s;
+            }
+            .fan-stage.is-shuffling { pointer-events: none; }
+
+            @media (min-width: 768px) {
+                .fan-card { width: 7rem; --radius: -17rem; }
+            }
+            @media (max-width: 767px) {
+                .fan-card { --radius: -9.5rem; }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .card-inner, .fan-card { transition: none; }
+            }
+        </style>
+
+        <!-- Sticky Header -->
+        <header id="header" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; backdrop-filter: none;">
+            <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: var(--orbital-max-width)">
+                <a href="index.html" class="flex items-center gap-2 text-foreground">
+                    <span class="text-primary text-lg leading-none">✦</span>
+                    <span class="font-sans tracking-wide text-sm font-semibold">ORBITAL</span>
+                </a>
+                <nav class="hidden md:flex" aria-label="主导航">
+                    <div class="jelly-radio" data-jelly-radio role="radiogroup" aria-label="主导航">
+                        <a class="jelly-radio__chip" data-value="explore" data-href="index.html#explore" href="index.html#explore" role="radio" aria-checked="true" data-on="true" tabindex="0"><span class="jelly-radio__skin">占卜</span></a>
+                        <a class="jelly-radio__chip" data-value="features" data-href="index.html#features" href="index.html#features" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">关于</span></a>
+                    </div>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex items-center text-xs text-muted-foreground">
+                        <span class="text-foreground cursor-pointer">中</span>
+                        <span class="mx-1.5">/</span>
+                        <span class="hover:text-foreground cursor-pointer transition-colors">EN</span>
+                    </div>
+                    <button class="text-muted-foreground hover:text-foreground transition-colors" aria-label="购物车">
+                        <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+                    </button>
+                    <a href="#card-grid" class="hidden md:inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">开始占卜</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 50% 30%, color-mix(in srgb, var(--orbital-accent) 5%, transparent) 0%, transparent 55%);"></div>
+            <div class="relative mx-auto px-6 text-center" style="max-width: var(--orbital-max-width)">
+                <p class="text-xs uppercase tracking-[0.2em] text-primary mb-4">TAROT</p>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-foreground font-display mb-6">塔罗牌阵</h1>
+                <p class="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto">在心中默念你的问题，选择一张与你共鸣的牌。</p>
+            </div>
+        </section>
+
+        <!-- Card Selection Area -->
+        <section id="card-grid" class="py-12 md:py-20">
+            <div class="mx-auto px-6" style="max-width: var(--orbital-max-width)">
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8 md:mb-12">
+                    <p class="text-center text-sm text-muted-foreground">从扇形牌阵中选择一张牌背，点击翻牌</p>
+                    <button id="shuffle-btn" class="inline-flex items-center rounded-full border border-border bg-secondary px-4 py-2 text-sm text-secondary-foreground hover:bg-secondary/80 transition-colors" aria-label="洗牌">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4 mr-2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg>洗牌
+                    </button>
+                </div>
+                <div id="grid" class="fan-stage" role="list" aria-label="塔罗大牌"></div>
+            </div>
+        </section>
+
+        <!-- Result Panel -->
+        <section id="result-panel" class="hidden py-16 md:py-24 border-t border-border">
+            <div class="mx-auto px-6" style="max-width: var(--orbital-max-width)">
+                <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+                    <div class="mx-auto md:mx-0 w-full max-w-xs aspect-tarot rounded-xl overflow-hidden shadow-lg" id="result-card-visual"></div>
+                    <div class="space-y-6 text-center md:text-left">
+                        <div>
+                            <p class="text-xs uppercase tracking-[0.2em] text-primary mb-2" id="result-roman"></p>
+                            <h2 class="text-3xl md:text-4xl tracking-tight text-foreground font-display" id="result-title"></h2>
+                        </div>
+                        <div id="result-keywords" class="flex flex-wrap justify-center md:justify-start gap-2"></div>
+                        <p class="text-base text-muted-foreground leading-relaxed" id="result-meaning"></p>
+                        <button id="reset-draw" class="inline-flex items-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">重新抽牌</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer" class="py-16 md:py-20 border-t border-border bg-card">
+            <div class="mx-auto px-6" style="max-width: var(--orbital-max-width)">
+                <div class="grid md:grid-cols-4 gap-12 mb-12">
+                    <div class="md:col-span-1">
+                        <a href="index.html" class="flex items-center gap-2 text-foreground mb-3">
+                            <span class="text-primary text-lg leading-none">✦</span>
+                            <span class="font-sans tracking-wide text-sm font-semibold">ORBITAL</span>
+                        </a>
+                        <p class="text-sm text-muted-foreground">以星为引，寻物安心。</p>
+                    </div>
+                    <div>
+                        <h5 class="text-sm font-medium text-foreground mb-4">商城</h5>
+                        <ul class="space-y-2 text-sm text-muted-foreground">
+                            <li><a href="/shop" class="hover:text-foreground transition-colors">全部商品</a></li>
+                            <li><a href="/shop?sort=newest" class="hover:text-foreground transition-colors">新品系列</a></li>
+                            <li><a href="/shop?sort=featured" class="hover:text-foreground transition-colors">热门推荐</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-sm font-medium text-foreground mb-4">占卜</h5>
+                        <ul class="space-y-2 text-sm text-muted-foreground">
+                            <li><a href="tarot.html" class="hover:text-foreground transition-colors">塔罗牌阵</a></li>
+                            <li><a href="zodiac.html" class="hover:text-foreground transition-colors">星座命盘</a></li>
+                            <li><a href="iching.html" class="hover:text-foreground transition-colors">易经六爻</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h5 class="text-sm font-medium text-foreground mb-4">支持</h5>
+                        <ul class="space-y-2 text-sm text-muted-foreground">
+                            <li><a href="#" class="hover:text-foreground transition-colors">配送说明</a></li>
+                            <li><a href="#" class="hover:text-foreground transition-colors">退换政策</a></li>
+                            <li><a href="#" class="hover:text-foreground transition-colors">联系我们</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 pt-8 border-t border-border">
+                    <p class="text-xs text-muted-foreground">© 2026 ORBITAL. 保留所有权利。</p>
+                    <form class="flex gap-2 w-full md:w-auto">
+                        <input type="email" placeholder="订阅星辰通讯" class="flex-1 md:w-56 rounded-full border border-border bg-background px-4 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring">
+                        <button type="button" class="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">订阅</button>
+                    </form>
+                </div>
+            </div>
+        </footer>
+    <script src="../assets/JellyRadio.js"></script>
+    </main></body>
+</html>

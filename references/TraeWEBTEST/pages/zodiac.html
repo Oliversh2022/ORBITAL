@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>星座命盘</title>
+        <link rel="stylesheet" href="../assets/orbital-apple.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
+    <style type="text/tailwindcss">
+  @theme inline {
+    --color-background: var(--orbital-background);
+    --color-foreground: var(--orbital-foreground);
+    --color-card: var(--orbital-card);
+    --color-card-foreground: var(--orbital-card-foreground);
+    --color-popover: var(--orbital-popover);
+    --color-popover-foreground: var(--orbital-popover-foreground);
+    --color-primary: var(--orbital-primary);
+    --color-primary-foreground: var(--orbital-primary-foreground);
+    --color-secondary: var(--orbital-secondary);
+    --color-secondary-foreground: var(--orbital-secondary-foreground);
+    --color-muted: var(--orbital-muted);
+    --color-muted-foreground: var(--orbital-muted-foreground);
+    --color-accent: var(--orbital-accent);
+    --color-accent-foreground: var(--orbital-accent-foreground);
+    --color-border: var(--orbital-border);
+    --color-input: var(--orbital-input);
+    --color-ring: var(--orbital-ring);
+    --radius-sm: var(--orbital-radius-sm);
+    --radius-md: var(--orbital-radius-md);
+    --radius-lg: var(--orbital-radius-lg);
+    --radius-xl: var(--orbital-radius-xl);
+  }
+  @layer base {
+    body { background: var(--orbital-background); color: var(--orbital-foreground); }
+    td, th { @apply break-words; word-break: break-all; word-break: auto-phrase; }
+    th { @apply whitespace-nowrap; }
+  }
+    </style>
+    <style id="semantic-token-fallback">
+      .bg-background { background-color: var(--orbital-background); }
+      .text-background { color: var(--orbital-background); }
+      .border-background { border-color: var(--orbital-background); }
+      .ring-background { --tw-ring-color: var(--orbital-background); }
+      .bg-foreground { background-color: var(--orbital-foreground); }
+      .text-foreground { color: var(--orbital-foreground); }
+      .border-foreground { border-color: var(--orbital-foreground); }
+      .ring-foreground { --tw-ring-color: var(--orbital-foreground); }
+      .bg-card { background-color: var(--orbital-card); }
+      .text-card { color: var(--orbital-card); }
+      .border-card { border-color: var(--orbital-card); }
+      .ring-card { --tw-ring-color: var(--orbital-card); }
+      .bg-card-foreground { background-color: var(--orbital-card-foreground); }
+      .text-card-foreground { color: var(--orbital-card-foreground); }
+      .border-card-foreground { border-color: var(--orbital-card-foreground); }
+      .ring-card-foreground { --tw-ring-color: var(--orbital-card-foreground); }
+      .bg-popover { background-color: var(--orbital-popover); }
+      .text-popover { color: var(--orbital-popover); }
+      .border-popover { border-color: var(--orbital-popover); }
+      .ring-popover { --tw-ring-color: var(--orbital-popover); }
+      .bg-popover-foreground { background-color: var(--orbital-popover-foreground); }
+      .text-popover-foreground { color: var(--orbital-popover-foreground); }
+      .border-popover-foreground { border-color: var(--orbital-popover-foreground); }
+      .ring-popover-foreground { --tw-ring-color: var(--orbital-popover-foreground); }
+      .bg-primary { background-color: var(--orbital-primary); }
+      .text-primary { color: var(--orbital-primary); }
+      .border-primary { border-color: var(--orbital-primary); }
+      .ring-primary { --tw-ring-color: var(--orbital-primary); }
+      .bg-primary-foreground { background-color: var(--orbital-primary-foreground); }
+      .text-primary-foreground { color: var(--orbital-primary-foreground); }
+      .border-primary-foreground { border-color: var(--orbital-primary-foreground); }
+      .ring-primary-foreground { --tw-ring-color: var(--orbital-primary-foreground); }
+      .bg-secondary { background-color: var(--orbital-secondary); }
+      .text-secondary { color: var(--orbital-secondary); }
+      .border-secondary { border-color: var(--orbital-secondary); }
+      .ring-secondary { --tw-ring-color: var(--orbital-secondary); }
+      .bg-secondary-foreground { background-color: var(--orbital-secondary-foreground); }
+      .text-secondary-foreground { color: var(--orbital-secondary-foreground); }
+      .border-secondary-foreground { border-color: var(--orbital-secondary-foreground); }
+      .ring-secondary-foreground { --tw-ring-color: var(--orbital-secondary-foreground); }
+      .bg-muted { background-color: var(--orbital-muted); }
+      .text-muted { color: var(--orbital-muted); }
+      .border-muted { border-color: var(--orbital-muted); }
+      .ring-muted { --tw-ring-color: var(--orbital-muted); }
+      .bg-muted-foreground { background-color: var(--orbital-muted-foreground); }
+      .text-muted-foreground { color: var(--orbital-muted-foreground); }
+      .border-muted-foreground { border-color: var(--orbital-muted-foreground); }
+      .ring-muted-foreground { --tw-ring-color: var(--orbital-muted-foreground); }
+      .bg-accent { background-color: var(--orbital-accent); }
+      .text-accent { color: var(--orbital-accent); }
+      .border-accent { border-color: var(--orbital-accent); }
+      .ring-accent { --tw-ring-color: var(--orbital-accent); }
+      .bg-accent-foreground { background-color: var(--orbital-accent-foreground); }
+      .text-accent-foreground { color: var(--orbital-accent-foreground); }
+      .border-accent-foreground { border-color: var(--orbital-accent-foreground); }
+      .ring-accent-foreground { --tw-ring-color: var(--orbital-accent-foreground); }
+      .bg-border { background-color: var(--orbital-border); }
+      .text-border { color: var(--orbital-border); }
+      .border-border { border-color: var(--orbital-border); }
+      .ring-border { --tw-ring-color: var(--orbital-border); }
+      .bg-input { background-color: var(--orbital-input); }
+      .text-input { color: var(--orbital-input); }
+      .border-input { border-color: var(--orbital-input); }
+      .ring-input { --tw-ring-color: var(--orbital-input); }
+      .bg-ring { background-color: var(--orbital-ring); }
+      .text-ring { color: var(--orbital-ring); }
+      .border-ring { border-color: var(--orbital-ring); }
+      .ring-ring { --tw-ring-color: var(--orbital-ring); }
+    </style>
+    <style>
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      [data-icon] {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        background-color: currentColor;
+      }
+    </style>
+    <link rel="stylesheet" href="../assets/JellyRadio.css" />
+</head>
+<body class="min-h-screen font-sans antialiased">
+    <style>.orbital-fibers-frame{position:fixed;z-index:0;inset:0;width:100%;height:100%;border:0;pointer-events:none}body{background:transparent!important}body>main{position:relative;z-index:1;background:transparent}</style>
+    <iframe class="orbital-fibers-frame" src="ghost-fibers.html" title="Animated fiber background" aria-hidden="true" tabindex="-1"></iframe>
+    <main>
+        <style>
+            @keyframes wheel-spin {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            @keyframes wheel-fade-in {
+                from { opacity: 0; transform: translateY(12px) scale(0.98); }
+                to { opacity: 1; transform: translateY(0) scale(1); }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .wheel-spin-slow,
+                .wheel-reveal {
+                    animation: none !important;
+                }
+            }
+            .wheel-spin-slow {
+                animation: wheel-spin 120s linear infinite;
+                transform-origin: center;
+            }
+            .wheel-reveal {
+                animation: wheel-fade-in 0.6s ease-out forwards;
+            }
+            .zodiac-input {
+                background: color-mix(in srgb, var(--orbital-input) 60%, transparent);
+                border: 1px solid var(--orbital-border);
+                color: var(--orbital-foreground);
+            }
+            .zodiac-input:focus {
+                outline: none;
+                border-color: var(--orbital-primary);
+                box-shadow: 0 0 0 2px color-mix(in srgb, var(--orbital-primary) 20%, transparent);
+            }
+            .zodiac-input option {
+                background: var(--orbital-card);
+                color: var(--orbital-foreground);
+            }
+            .reveal {
+                opacity: 0;
+                transform: translateY(1.5rem);
+                transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+                transition-delay: calc(var(--reveal-index, 0) * 80ms);
+            }
+            .reveal.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .reveal-static {
+                opacity: 0;
+                transform: translateY(1.5rem);
+                animation: reveal-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+                animation-delay: calc(var(--reveal-index, 0) * 80ms + 0.3s);
+            }
+            @keyframes reveal-in {
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .hero-reveal {
+                opacity: 0;
+                transform: translateY(1.5rem);
+                animation: hero-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+                animation-delay: var(--hero-delay, 0.1s);
+            }
+            @keyframes hero-in {
+                to { opacity: 1; transform: translateY(0); }
+            }
+            .planet-marker {
+                opacity: 0;
+                transform: scale(0);
+                transition: opacity 0.6s ease-out, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+                transform-origin: center;
+            }
+            .planet-marker.placed {
+                opacity: 1;
+                transform: scale(1);
+            }
+            .wheel-pulse {
+                animation: wheel-pulse 0.9s ease-out;
+            }
+            @keyframes wheel-pulse {
+                0% { transform: scale(0.96); opacity: 0.6; }
+                50% { transform: scale(1.02); opacity: 1; }
+                100% { transform: scale(1); opacity: 1; }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .reveal, .reveal-static, .hero-reveal, .planet-marker {
+                    opacity: 1;
+                    transform: none;
+                    transition: none;
+                    animation: none;
+                }
+                .wheel-pulse {
+                    animation: none;
+                }
+            }
+        </style>
+
+        <!-- Sticky Header -->
+        <header id="header" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; backdrop-filter: none;">
+            <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: var(--orbital-max-width)">
+                <a href="index.html" class="flex items-center gap-2 text-foreground">
+                    <span class="text-primary text-lg leading-none">✦</span>
+                    <span class="font-sans tracking-wide text-sm font-semibold">ORBITAL</span>
+                </a>
+                <nav class="hidden md:flex" aria-label="主导航">
+                    <div class="jelly-radio" data-jelly-radio role="radiogroup" aria-label="主导航">
+                        <a class="jelly-radio__chip" data-value="explore" data-href="index.html#explore" href="index.html#explore" role="radio" aria-checked="true" data-on="true" tabindex="0"><span class="jelly-radio__skin">占卜</span></a>
+                        <a class="jelly-radio__chip" data-value="features" data-href="index.html#features" href="index.html#features" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">关于</span></a>
+                    </div>
+                </nav>
+                <div class="flex items-center gap-4">
+                    <div class="hidden md:flex items-center text-xs text-muted-foreground">
+                        <span class="text-foreground cursor-pointer">中</span>
+                        <span class="mx-1.5">/</span>
+                        <span class="hover:text-foreground cursor-pointer transition-colors">EN</span>
+                    </div>
+                    <button class="text-muted-foreground hover:text-foreground transition-colors" aria-label="购物车">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    </button>
+                    <a href="#form" class="hidden md:inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">开始占卜</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="relative pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+            <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at 30% 40%, color-mix(in srgb, var(--orbital-accent) 6%, transparent) 0%, transparent 50%);"></div>
+            <div class="relative mx-auto px-6 text-center" style="max-width: var(--orbital-max-width)">
+                <p class="hero-reveal text-xs uppercase tracking-[0.25em] text-primary mb-4" style="transition-delay: 120ms;">ZODIAC</p>
+                <h1 class="hero-reveal text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight text-foreground mb-5" style="font-family: var(--orbital-font-display); transition-delay: 220ms;">星座命盘</h1>
+                <p class="hero-reveal text-base md:text-lg text-muted-foreground leading-relaxed max-w-md mx-auto" style="transition-delay: 320ms;">输入出生信息，绘制你独有的星盘地图。</p>
+            </div>
+        </section>
+
+        <!-- Input Form -->
+        <section id="form" class="pb-16 md:pb-24">
+            <div class="mx-auto px-6" style="max-width: var(--orbital-max-width)">
+                <div class="reveal-static max-w-xl mx-auto rounded-2xl border border-border bg-card p-6 md:p-8">
+                    <form id="zodiac-form" class="space-y-5">
+                        <div class="space-y-1.5">
+                            <label for="birth-date" class="block text-sm text-muted-foreground">出生日期</label>
+                            <input id="birth-date" name="birth-date" type="date" required class="zodiac-input w-full rounded-lg px-4 py-2.5 text-sm" />
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="birth-time" class="block text-sm text-muted-foreground">出生时间</label>
+                            <input id="birth-time" name="birth-time" type="time" required class="zodiac-input w-full rounded-lg px-4 py-2.5 text-sm" />
+                        </div>
+                        <div class="space-y-1.5">
+                            <label for="birth-city" class="block text-sm text-muted-foreground">出生城市</label>
+                            <select id="birth-city" name="birth-city" required class="zodiac-input w-full rounded-lg px-4 py-2.5 text-sm">
+                                <option value="北京">北京</option>
+                                <option value="上海">上海</option>
+                                <option value="广州">广州</option>
+                                <option value="深圳">深圳</option>
+                                <option value="成都">成都</option>
+                                <option value="杭州">杭州</option>
+                                <option value="武汉">武汉</option>
+                                <option value="西安">西安</option>
+                                <option value="南京">南京</option>
+                                <option value="重庆">重庆</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <input id="dst" name="dst" type="checkbox" class="w-4 h-4 rounded border-border bg-background text-primary focus:ring-primary" />
+                            <label for="dst" class="text-sm text-muted-foreground">是否夏令时</label>
+                        </div>
+                        <button id="submit-btn" type="submit" class="w-full inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-60 disabled:cursor-not-allowed">
+                            <span id="btn-text">生成命盘</span>
+                            <svg id="btn-spinner" class="hidden w-4 h-4 ml-2 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Chart -->
+        <section id="result" class="hidden pb-20 md:pb-32">
+            <div class="mx-auto px-6" style="max-width: var(--orbital-max-width)">
+                <div id="result-inner" class="reveal">
+                    <div id="wheel-container" class="flex justify-center mb-10 md:mb-14">
+                        <svg id="zodiac-wheel" viewBox="0 0 400 400" class="w-full max-w-[420px] h-auto" aria-label="星座命盘图" role="img">
+                            <defs>
+                                <radialGradient id="wheelGlow" cx="50%" cy="50%" r="50%">
+                                    <stop offset="0%" style="stop-color:var(--orbital-primary);stop-opacity:0.12" />
+                                    <stop offset="100%" style="stop-color:var(--orbital-primary);stop-opacity:0" />
+                                </radialGradient>
+                            </defs>
+
+                            <!-- Glow background -->
+                            <circle cx="200" cy="200" r="190" fill="url(#wheelGlow)" />
+
+                            <!-- Outer ring -->
+                            <circle cx="200" cy="200" r="190" fill="none" stroke="var(--orbital-primary)" stroke-width="1" opacity="0.35" />
+                            <circle cx="200" cy="200" r="165" fill="none" stroke="var(--orbital-border)" stroke-width="1" />
+                            <circle cx="200" cy="200" r="115" fill="none" stroke="var(--orbital-border)" stroke-width="1" />
+                            <circle cx="200" cy="200" r="70" fill="none" stroke="var(--orbital-border)" stroke-width="1" />
+                            <circle cx="200" cy="200" r="35" fill="var(--orbital-card)" stroke="var(--orbital-primary)" stroke-width="1.5" opacity="0.9" />
+
+                            <!-- House cusp lines (updated by JS) -->
+                            <g id="house-lines" opacity="0.45" stroke="rgba(255,255,255,0.16)" stroke-width="0.8"></g>
+
+                            <!-- Sign ring (symbols + names) -->
+                            <g id="sign-ring"></g>
+
+                            <!-- Cusp degree labels -->
+                            <g id="cusp-degrees" font-family="var(--orbital-font-sans)"></g>
+
+                            <!-- House numbers -->
+                            <g id="house-numbers" font-family="var(--orbital-font-sans)"></g>
+
+                            <!-- Axis lines (ASC/DSC/MC/IC) -->
+                            <g id="axis-lines" opacity="0.95" stroke-width="1.5"></g>
+
+                            <!-- Aspect lines -->
+                            <g id="aspect-lines" opacity="0.55" stroke-width="1"></g>
+
+                            <!-- Center label -->
+                            <text x="200" y="196" text-anchor="middle" fill="var(--orbital-primary)" font-size="10" font-family="var(--orbital-font-sans)" style="letter-spacing: 0.12em;">ORBITAL</text>
+                            <text x="200" y="212" text-anchor="middle" fill="var(--orbital-muted-foreground)" font-size="8" font-family="var(--orbital-font-sans)">星盘</text>
+
+                            <!-- Planet glyphs + degree labels -->
+                            <g id="planet-markers"></g>
+                        </svg>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-5">
+                        <div class="reveal rounded-xl border border-border bg-card p-5" style="--reveal-index: 1;">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-2 h-2 rounded-full bg-primary"></span>
+                                <span class="text-xs uppercase tracking-wide text-muted-foreground">Sun Sign</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-foreground mb-1">太阳星座</h3>
+                            <p id="sun-result" class="text-2xl font-light text-primary" style="font-family: var(--orbital-font-display)">--</p>
+                            <p class="text-sm text-muted-foreground mt-2">你的核心意志与外在表达。</p>
+                        </div>
+                        <div class="reveal rounded-xl border border-border bg-card p-5" style="--reveal-index: 2;">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-2 h-2 rounded-full bg-accent"></span>
+                                <span class="text-xs uppercase tracking-wide text-muted-foreground">Moon Sign</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-foreground mb-1">月亮星座</h3>
+                            <p id="moon-result" class="text-2xl font-light text-accent" style="font-family: var(--orbital-font-display)">--</p>
+                            <p class="text-sm text-muted-foreground mt-2">你的情感模式与内在需求。</p>
+                        </div>
+                        <div class="reveal rounded-xl border border-border bg-card p-5" style="--reveal-index: 3;">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="w-2 h-2 rounded-full bg-foreground"></span>
+                                <span class="text-xs uppercase tracking-wide text-muted-foreground">Ascendant</span>
+                            </div>
+                            <h3 class="text-lg font-medium text-foreground mb-1">上升星座</h3>
+                            <p id="asc-result" class="text-2xl font-light text-foreground" style="font-family: var(--orbital-font-display)">--</p>
+                            <p class="text-sm text-muted-foreground mt-2">你给人的第一印象与人生路径。</p>
+                        </div>
+                    </div>
+
+                    <div id="planet-list" class="reveal mt-6 rounded-xl border border-border bg-card p-5" style="--reveal-index: 4;">
+                        <h3 class="text-sm uppercase tracking-wide text-muted-foreground mb-4">行星落座</h3>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="planet-list-grid"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-border py-10 md:py-14">
+            <div class="mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6" style="max-width: var(--orbital-max-width)">
+                <a href="index.html" class="flex items-center gap-2 text-foreground">
+                    <span class="text-primary text-lg leading-none">✦</span>
+                    <span class="font-sans tracking-wide text-sm font-semibold">ORBITAL</span>
+                </a>
+                <p class="text-sm text-muted-foreground">以星为引，寻物安心。</p>
+                <div class="flex items-center gap-6">
+                    <a href="#" class="text-sm text-muted-foreground hover:text-foreground transition-colors">隐私政策</a>
+                    <a href="#" class="text-sm text-muted-foreground hover:text-foreground transition-colors">服务条款</a>
+                </div>
+            </div>
+        </footer>
+
+        <script type="module">
+            import { SwissEphemeris, Planet, HouseSystem } from 'https://cdn.jsdelivr.net/npm/@swisseph/browser@1.3.1/+esm';
+
+            const zodiacSigns = [
+                { name: '白羊', symbol: '♈' }, { name: '金牛', symbol: '♉' },
+                { name: '双子', symbol: '♊' }, { name: '巨蟹', symbol: '♋' },
+                { name: '狮子', symbol: '♌' }, { name: '处女', symbol: '♍' },
+                { name: '天秤', symbol: '♎' }, { name: '天蝎', symbol: '♏' },
+                { name: '射手', symbol: '♐' }, { name: '摩羯', symbol: '♑' },
+                { name: '水瓶', symbol: '♒' }, { name: '双鱼', symbol: '♓' }
+            ];
+
+            const cityData = {
+                '北京': { lat: 39.9042, lon: 116.4074 },
+                '上海': { lat: 31.2304, lon: 121.4737 },
+                '广州': { lat: 23.1291, lon: 113.2644 },
+                '深圳': { lat: 22.5431, lon: 114.0579 },
+                '成都': { lat: 30.5728, lon: 104.0668 },
+                '杭州': { lat: 30.2741, lon: 120.1551 },
+                '武汉': { lat: 30.5928, lon: 114.3055 },
+                '西安': { lat: 34.3416, lon: 108.9398 },
+                '南京': { lat: 32.0603, lon: 118.7969 },
+                '重庆': { lat: 29.5628, lon: 106.5528 },
+                '其他': { lat: 39.9042, lon: 116.4074 }
+            };
+
+            const swe = new SwissEphemeris();
+            let sweReady = false;
+
+            async function ensureSwe() {
+                if (!sweReady) {
+                    await swe.init();
+                    sweReady = true;
+                }
+            }
+
+            function signName(longitude) {
+                return zodiacSigns[Math.floor(longitude / 30) % 12].name;
+            }
+
+            const glyphFamily = 'Segoe UI Symbol, Noto Sans Symbols 2, sans-serif';
+            const planetGlyphs = {
+                sun: '☉', moon: '☽', mercury: '☿', venus: '♀', mars: '♂',
+                jupiter: '♃', saturn: '♄', uranus: '♅', neptune: '♆', pluto: '♇'
+            };
+
+            function degMin(longitude) {
+                const deg = Math.floor(longitude % 30);
+                const min = Math.floor(((longitude % 30) - deg) * 60);
+                return `${deg}°${min < 10 ? '0' + min : min}′`;
+            }
+
+            function renderSignLabels() {
+                const group = document.getElementById('sign-ring');
+                if (!group) return;
+                let html = '';
+                zodiacSigns.forEach((sign, i) => {
+                    const boundary = (i * 30 - 90) * Math.PI / 180;
+                    const bx1 = 200 + 165 * Math.cos(boundary);
+                    const by1 = 200 + 165 * Math.sin(boundary);
+                    const bx2 = 200 + 190 * Math.cos(boundary);
+                    const by2 = 200 + 190 * Math.sin(boundary);
+                    html += `<line x1="${bx1}" y1="${by1}" x2="${bx2}" y2="${by2}" stroke="rgba(255,255,255,0.1)" stroke-width="1" />`;
+
+                    const mid = i * 30 + 15 - 90;
+                    const rad = mid * Math.PI / 180;
+                    const x = 200 + 177 * Math.cos(rad);
+                    const y = 200 + 177 * Math.sin(rad);
+                    html += `<text x="${x}" y="${y - 2}" text-anchor="middle" fill="var(--orbital-foreground)" font-size="16" font-family="${glyphFamily}">${sign.symbol}</text>`;
+                    html += `<text x="${x}" y="${y + 11}" text-anchor="middle" fill="var(--orbital-muted-foreground)" font-size="8" font-family="var(--orbital-font-sans)" style="letter-spacing:0.04em;">${sign.name}</text>`;
+                });
+                group.innerHTML = html;
+            }
+
+            function updateHouseLines(cusps) {
+                const group = document.getElementById('house-lines');
+                if (!group) return;
+                let html = '';
+                for (let i = 1; i <= 12; i++) {
+                    const lon = cusps[i];
+                    const rad = (lon - 90) * Math.PI / 180;
+                    const x1 = 200 + 190 * Math.cos(rad);
+                    const y1 = 200 + 190 * Math.sin(rad);
+                    html += `<line x1="${x1}" y1="${y1}" x2="200" y2="200" />`;
+                }
+                group.innerHTML = html;
+            }
+
+            function updateCuspDegrees(cusps) {
+                const group = document.getElementById('cusp-degrees');
+                if (!group) return;
+                let html = '';
+                for (let i = 1; i <= 12; i++) {
+                    const lon = cusps[i];
+                    const rad = (lon - 90) * Math.PI / 180;
+                    const x = 200 + 182 * Math.cos(rad);
+                    const y = 200 + 182 * Math.sin(rad);
+                    html += `<text x="${x}" y="${y + 2}" text-anchor="middle" fill="var(--orbital-muted-foreground)" font-size="7" font-family="var(--orbital-font-sans)">${degMin(lon)}</text>`;
+                }
+                group.innerHTML = html;
+            }
+
+            function updateHouseNumbers(cusps) {
+                const group = document.getElementById('house-numbers');
+                if (!group) return;
+                let html = '';
+                for (let i = 1; i <= 12; i++) {
+                    const c1 = cusps[i];
+                    const c2 = cusps[i < 12 ? i + 1 : 1];
+                    const span = (c2 - c1 + 360) % 360;
+                    const mid = c1 + span / 2;
+                    const rad = (mid - 90) * Math.PI / 180;
+                    const x = 200 + 140 * Math.cos(rad);
+                    const y = 200 + 140 * Math.sin(rad);
+                    html += `<text x="${x}" y="${y + 3}" text-anchor="middle" fill="var(--orbital-primary)" font-size="10" font-family="var(--orbital-font-sans)" style="font-weight:600;opacity:0.85;">${i}</text>`;
+                }
+                group.innerHTML = html;
+            }
+
+            function updateAxisLines(cusps) {
+                const group = document.getElementById('axis-lines');
+                if (!group) return;
+                const axes = [
+                    { from: cusps[1], label: 'ASC', color: '#4ade80' },
+                    { from: cusps[7], label: 'DSC', color: '#f87171' },
+                    { from: cusps[10], label: 'MC', color: '#c9a962' },
+                    { from: cusps[4], label: 'IC', color: '#8b7bc9' }
+                ];
+                let html = '';
+                axes.forEach(a => {
+                    const rad = (a.from - 90) * Math.PI / 180;
+                    const x1 = 200 + 190 * Math.cos(rad);
+                    const y1 = 200 + 190 * Math.sin(rad);
+                    const x2 = 200 - 190 * Math.cos(rad);
+                    const y2 = 200 - 190 * Math.sin(rad);
+                    html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${a.color}" stroke-opacity="0.7" />`;
+                    const lx = 200 + 178 * Math.cos(rad);
+                    const ly = 200 + 178 * Math.sin(rad);
+                    html += `<circle cx="${lx}" cy="${ly}" r="9" fill="var(--orbital-card)" stroke="${a.color}" stroke-width="1" opacity="0.95" />`;
+                    html += `<text x="${lx}" y="${ly + 3}" text-anchor="middle" fill="${a.color}" font-size="7" font-family="var(--orbital-font-sans)" style="font-weight:700;">${a.label}</text>`;
+                });
+                group.innerHTML = html;
+            }
+
+            function calculateAspects(bodies) {
+                const aspects = [];
+                // 测测相位颜色：六分=蓝，四分=红，三分=绿，对分=紫
+                const defs = [
+                    { value: 60, orb: 6, color: '#60a5fa' },
+                    { value: 90, orb: 7, color: '#f87171' },
+                    { value: 120, orb: 7, color: '#4ade80' },
+                    { value: 180, orb: 8, color: '#a78bfa' }
+                ];
+                for (let i = 0; i < bodies.length; i++) {
+                    for (let j = i + 1; j < bodies.length; j++) {
+                        let diff = Math.abs(bodies[i].longitude - bodies[j].longitude);
+                        if (diff > 180) diff = 360 - diff;
+                        for (const a of defs) {
+                            if (Math.abs(diff - a.value) <= a.orb) {
+                                aspects.push({ a: bodies[i], b: bodies[j], color: a.color });
+                                break;
+                            }
+                        }
+                    }
+                }
+                return aspects;
+            }
+
+            function updateAspectLines(aspects) {
+                const group = document.getElementById('aspect-lines');
+                if (!group) return;
+                let html = '';
+                aspects.forEach(as => {
+                    const r = 92;
+                    const radA = (as.a.longitude - 90) * Math.PI / 180;
+                    const radB = (as.b.longitude - 90) * Math.PI / 180;
+                    const x1 = 200 + r * Math.cos(radA);
+                    const y1 = 200 + r * Math.sin(radA);
+                    const x2 = 200 + r * Math.cos(radB);
+                    const y2 = 200 + r * Math.sin(radB);
+                    html += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${as.color}" stroke-opacity="0.8" stroke-width="1.1" stroke-linecap="round" />`;
+                });
+                group.innerHTML = html;
+            }
+
+            function updatePlanetMarkers(bodies) {
+                const group = document.getElementById('planet-markers');
+                if (!group) return;
+                let html = '';
+                bodies.forEach(b => {
+                    const rad = (b.longitude - 90) * Math.PI / 180;
+                    const x = 200 + b.radius * Math.cos(rad);
+                    const y = 200 + b.radius * Math.sin(rad);
+                    html += `<g class="planet-marker placed" transform="translate(${x},${y})">`;
+                    html += `<circle r="8" fill="var(--orbital-card)" stroke="${b.color}" stroke-width="1.5" />`;
+                    html += `<text x="0" y="4" text-anchor="middle" fill="${b.color}" font-size="12" font-family="${glyphFamily}">${b.glyph}</text>`;
+                    html += `<text x="11" y="4" text-anchor="start" fill="${b.color}" font-size="7" font-family="var(--orbital-font-sans)">${degMin(b.longitude)}</text>`;
+                    html += `</g>`;
+                });
+                group.innerHTML = html;
+            }
+
+            function revealResult() {
+                const inner = document.getElementById('result-inner');
+                inner.classList.add('visible');
+                inner.querySelectorAll('.reveal').forEach((child, i) => {
+                    setTimeout(() => child.classList.add('visible'), i * 80);
+                });
+            }
+
+            function setLoading(loading) {
+                const btn = document.getElementById('submit-btn');
+                const text = document.getElementById('btn-text');
+                const spinner = document.getElementById('btn-spinner');
+                btn.disabled = loading;
+                text.textContent = loading ? '星历计算中…' : '生成命盘';
+                spinner.classList.toggle('hidden', !loading);
+            }
+
+            function toUTCDate(dateStr, timeStr, dst) {
+                const [y, m, d] = dateStr.split('-').map(Number);
+                const [hh, mm] = timeStr.split(':').map(Number);
+                const offsetHours = 8 + (dst ? 1 : 0);
+                return new Date(Date.UTC(y, m - 1, d, hh - offsetHours, mm, 0));
+            }
+
+            renderSignLabels();
+
+            const form = document.getElementById('zodiac-form');
+            const result = document.getElementById('result');
+            const wheelContainer = document.getElementById('wheel-container');
+            const planetListGrid = document.getElementById('planet-list-grid');
+
+            const bodies = [
+                { id: 'sun', planet: Planet.Sun, label: '太阳', glyph: planetGlyphs.sun, radius: 100, color: '#c9a962' },
+                { id: 'moon', planet: Planet.Moon, label: '月亮', glyph: planetGlyphs.moon, radius: 122, color: '#8b7bc9' },
+                { id: 'mercury', planet: Planet.Mercury, label: '水星', glyph: planetGlyphs.mercury, radius: 70, color: '#4ade80' },
+                { id: 'venus', planet: Planet.Venus, label: '金星', glyph: planetGlyphs.venus, radius: 140, color: '#f6f6f7' },
+                { id: 'mars', planet: Planet.Mars, label: '火星', glyph: planetGlyphs.mars, radius: 86, color: '#f87171' },
+                { id: 'jupiter', planet: Planet.Jupiter, label: '木星', glyph: planetGlyphs.jupiter, radius: 154, color: '#facc15' },
+                { id: 'saturn', planet: Planet.Saturn, label: '土星', glyph: planetGlyphs.saturn, radius: 58, color: '#8a8a98' },
+                { id: 'uranus', planet: Planet.Uranus, label: '天王星', glyph: planetGlyphs.uranus, radius: 112, color: '#60a5fa' },
+                { id: 'neptune', planet: Planet.Neptune, label: '海王星', glyph: planetGlyphs.neptune, radius: 132, color: '#38bdf8' },
+                { id: 'pluto', planet: Planet.Pluto, label: '冥王星', glyph: planetGlyphs.pluto, radius: 76, color: '#a78bfa' }
+            ];
+
+            form.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                setLoading(true);
+                try {
+                    await ensureSwe();
+
+                    const date = document.getElementById('birth-date').value;
+                    const time = document.getElementById('birth-time').value;
+                    const city = document.getElementById('birth-city').value;
+                    const dst = document.getElementById('dst').checked;
+                    const coords = cityData[city] || cityData['其他'];
+
+                    const utcDate = toUTCDate(date, time, dst);
+                    const jd = swe.dateToJulianDay(utcDate);
+
+                    const houses = swe.calculateHouses(jd, coords.lat, coords.lon, HouseSystem.Placidus);
+                    updateHouseLines(houses.cusps);
+                    updateCuspDegrees(houses.cusps);
+                    updateHouseNumbers(houses.cusps);
+                    updateAxisLines(houses.cusps);
+
+                    const computed = bodies.map(b => {
+                        const pos = swe.calculatePosition(jd, b.planet);
+                        return { ...b, longitude: pos.longitude };
+                    });
+
+                    const ascendant = houses.ascendant;
+
+                    document.getElementById('sun-result').textContent = signName(computed.find(b => b.id === 'sun').longitude) + '座';
+                    document.getElementById('moon-result').textContent = signName(computed.find(b => b.id === 'moon').longitude) + '座';
+                    document.getElementById('asc-result').textContent = signName(ascendant) + '座';
+
+                    wheelContainer.classList.remove('wheel-pulse');
+
+                    updatePlanetMarkers(computed);
+                    updateAspectLines(calculateAspects(computed));
+
+                    // Planet list
+                    planetListGrid.innerHTML = computed.map(b => {
+                        const s = zodiacSigns[Math.floor(b.longitude / 30) % 12];
+                        return `<div class="rounded-lg border border-border bg-secondary/40 p-3"><div class="flex items-center gap-2 text-xs text-muted-foreground mb-1"><span class="w-2 h-2 rounded-full" style="background:${b.color}"></span>${b.label}</div><div class="text-foreground font-medium">${s.name}<span class="text-muted-foreground text-xs ml-1">${s.symbol} ${degMin(b.longitude)}</span></div></div>`;
+                    }).join('');
+
+                    result.classList.remove('hidden');
+                    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    requestAnimationFrame(() => {
+                        revealResult();
+                        wheelContainer.classList.add('wheel-pulse');
+                    });
+                } catch (err) {
+                    console.error(err);
+                    alert('星历计算失败，请检查网络或时间设置后重试。');
+                } finally {
+                    setLoading(false);
+                }
+            });
+        </script>
+    </main>
+    <script src="../assets/JellyRadio.js"></script>
+</body>
+</html>

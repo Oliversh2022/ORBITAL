@@ -1,0 +1,95 @@
+.jelly-radio {
+  --jr-chip: #27272a;
+  --jr-active: #f8d66d;
+  --jr-text: #f5f5f5;
+  --jr-active-text: #18181b;
+  --jr-gap: 8px;
+  --jr-radius: 15px;
+  --jr-h: 30px;
+  --jr-font: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--jr-gap);
+  padding: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.jelly-radio__chip {
+  position: relative;
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  transform-origin: 50% 50%;
+  transition: transform 260ms cubic-bezier(0.23, 1, 0.32, 1);
+  --jr-x: 0px;
+  --jr-sx: 1;
+  --jr-sy: 1;
+  transform: translateX(var(--jr-x)) scale(var(--jr-sx), var(--jr-sy));
+  touch-action: manipulation;
+}
+
+.jelly-radio__skin {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--jr-h);
+  padding: 0 12px;
+  border-radius: var(--jr-radius);
+  overflow: hidden;
+  background: var(--jr-chip);
+  color: var(--jr-text);
+  font-size: var(--jr-font);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background-color 200ms ease, color 200ms ease, box-shadow 200ms ease;
+}
+
+.jelly-radio__skin::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--jr-text);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 160ms ease;
+}
+
+.jelly-radio__chip:hover .jelly-radio__skin::before,
+.jelly-radio__chip:focus-visible .jelly-radio__skin::before {
+  opacity: 0.1;
+}
+
+.jelly-radio__chip[data-on='true'] .jelly-radio__skin {
+  background: var(--jr-active);
+  color: var(--jr-active-text);
+  box-shadow: 0 3px 14px rgba(245, 245, 245, 0.16);
+}
+
+.jelly-radio__chip[data-on='true'] {
+  --jr-sx: 1.2;
+  --jr-sy: 1.2;
+  z-index: 1;
+}
+
+.jelly-radio__chip[data-near='true'] { --jr-sx: 0.96; --jr-sy: 0.96; }
+.jelly-radio__chip:active { transform: translateX(var(--jr-x)) scale(0.96); }
+
+@media (max-width: 767px) {
+  .jelly-radio { gap: 4px; padding: 2px; }
+  .jelly-radio__skin { height: 28px; padding: 0 9px; font-size: 11px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jelly-radio__chip { transition: none; }
+  .jelly-radio__skin { transition: none; }
+}
