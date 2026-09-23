@@ -73,6 +73,15 @@ ORBITAL 下一阶段先做“可理解、可浏览、可扩展”的内容型商
 - 旧 `/shop`、`/account` 和不存在的动态路由仍然返回 404。
 - 商品详情页在手机宽度下不破坏卡牌、图片和导航布局。
 
+### 6. 数据库决定
+
+业务数据库确定使用 PostgreSQL 17，当前使用全新的 `orbital_catalog` 数据库；旧的 `orbital_store` 已删除。首批迁移位于 `database/`：
+
+- `001_initial_catalog.sql`：商品分类、商品、图片、材质、意图和占卜关联表。
+- `002_seed_visual_catalog.sql`：写入当前三款视觉基线商品和相关词典数据。
+
+表名和字段名采用清晰的英文 `snake_case`，表注释和业务文本使用中文；这样既满足中文可读性，也避免中文 quoted identifier 对 ORM 和迁移工具造成兼容问题。当前迁移不创建用户、订单、支付和库存扣减表。
+
 ---
 
 ## English
@@ -115,3 +124,7 @@ All three current products use `availability: preview` and `sellable: false`, pr
 3. Add three product detail pages using only fields that exist in the data contract.
 4. Add front-end shopping-bag state and quantity updates.
 5. Choose the Commerce stack and inventory model only after these pages are validated.
+
+### 5. Database decision
+
+PostgreSQL 17 is the selected business database, using the new clean `orbital_catalog` database; the old `orbital_store` database has been deleted. The first migrations live under `database/` and cover categories, products, media, materials, intentions, and divination relationships. Technical identifiers use readable English `snake_case`; PostgreSQL comments and business content remain Chinese-friendly. User, order, payment, and inventory-deduction tables remain deferred.
