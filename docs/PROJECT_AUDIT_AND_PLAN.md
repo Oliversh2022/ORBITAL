@@ -25,6 +25,7 @@
 - `apps/commerce` 的 Medusa 源码、数据库模型和迁移。
 - 用户、商品、购物车、结账、订单、支付与后台管理实现。
 - 应用层的测试、类型检查和生产构建入口。
+- Storefront/Commerce 运行时连接 PostgreSQL 的数据访问层。
 
 根 `package.json` 当前只保留静态站点启动脚本；未来恢复应用服务时，再单独补回对应的构建、数据库和业务命令。
 
@@ -55,11 +56,12 @@
 3. 重新定义页面层级、导航、SEO 路由和移动端优先布局。
 4. 已产出首版商品数据契约，见 `docs/PRODUCT_SCOPE_AND_DATA_MODEL.md` 与 `references/TraeWEBTEST/assets/data/products.json`。
 5. 在数据契约稳定后，再选择实现技术。
+6. PostgreSQL 17 的全新 `orbital_catalog` 已完成目录迁移与三款基线商品种子数据；旧 `orbital_store` 已删除。
 
 ### Phase 2：应用骨架
 
 1. 新建可验证的 Storefront 应用，而不是依赖当前空的 `apps/storefront` 目录。
-2. 新建 Commerce 服务与数据库，再接入真实商品和订单数据。
+2. 使用 PostgreSQL 17，先接入 `database/001_initial_catalog.sql` 和 `database/002_seed_visual_catalog.sql` 的商品目录数据，再接入真实商品和订单数据。
 3. 保持 3002 网关作为统一入口，内部服务分别使用 3010/9001。
 4. 先完成健康检查、错误页、日志和最小化部署启动链路。
 

@@ -46,6 +46,7 @@ pnpm dev
 references/TraeWEBTEST/pages   静态页面
 references/TraeWEBTEST/assets  背景、组件脚本、样式与图片资源
 references/TraeWEBTEST/assets/data/products.json  当前视觉版商品数据基线
+database/                     PostgreSQL 迁移与商品种子数据
 server.mjs                     3002 静态服务入口
 docs/                          项目审计与后续规划
 ```
@@ -100,6 +101,7 @@ The port contract is now explicit:
 references/TraeWEBTEST/pages   Static pages
 references/TraeWEBTEST/assets  Background, component, style, and image assets
 references/TraeWEBTEST/assets/data/products.json  Product-data baseline for this visual version
+database/                     PostgreSQL migrations and catalog seed data
 server.mjs                     Static server entry on port 3002
 docs/                          Project audit and follow-up planning
 ```
