@@ -1,138 +1,112 @@
 # ORBITAL
 
-## 中文
+ORBITAL 是面向海外销售的天然水晶手串独立站。项目包含品牌前台、Medusa 电商管理后端，以及用于本地开发的前台服务端网关。前台保留既有 ORBITAL 视觉语言；商品详情、购物袋与结账界面采用清晰的商品信息和交易信息层级。
 
-ORBITAL 是一个以星象、占卜与天然水晶手串为核心的独立站视觉版本。当前仓库保存的是可直接运行的静态网站版本，重点完成了品牌首页、动态背景、导航交互、产品卡牌翻转与占卜入口的统一视觉体验。
+> 当前版本用于开发与预览。商品、库存、配送、支付和订单流程尚未达到正式销售上线条件；不要将本地开发配置直接用于生产环境。
 
-### 当前版本内容
+## 项目组成
 
-- GhostFibers 动态 WebGL 光纤背景作为全站背景。
-- JellyRadio 导航切换：首页 / 精选 / 占卜 / 寻物，保留回弹动效，按钮背景以透明为主。
-- 产品展示卡使用 FlipCard：正面展示商品图，点击后以卡牌翻转动效展示价格与暗色商品图。
-- 三张占卜入口卡保留 BorderGlow 边缘光效，移除了额外的鼠标浮动抬升效果。
-- 首页、商品目录、商品详情、塔罗牌阵、星座命盘和易经六爻均可通过静态服务器访问。
-- Commerce Core 第一阶段已接入服务端商品目录 API、购物袋页面、购物袋本地状态和服务端报价校验；当前预览商品仍不可购买。
-- 账户和旧版商城入口不会再跳转到已删除的旧页面。
+```text
+前台浏览器
+   │
+   ▼
+server.mjs（本地前台与同源 API 网关，默认 :3002）
+   ├── Medusa Store API（商品目录及购物袋，默认 :9000）
+   └── Commerce Core / PostgreSQL（独立的目录、库存与交易基础模块）
 
-### 阶段状态
+medusa-platform/apps/backend（Medusa v2 管理后台与 API）
+```
 
-- Phase 2 — Design Preview：已关闭。Direction A 作为品牌视觉基础，商品信息层级采用更清晰的商业化表达；独立设计对比页按当前决策不保留。
-- Phase 3 — Core UI：桌面端页面壳、导航、首页、商品目录和商品详情已统一；首页精选商品已联动目录数据并可进入详情。移动端按当前决策暂缓。
-- Commerce Core：第一阶段基础已进入。服务端商品目录、Session 购物袋、变体/SKU、库存预占/释放/消费事务、购物袋报价 API、购物袋页面和 PostgreSQL 迁移已就位；支付、订单、账户和正式 Checkout 仍未开启。
-- Checkout 支持服务端普通配送费率报价和事务化订单草稿/库存暂留。通过 `ORBITAL_STANDARD_SHIPPING_FEE` 配置统一费率（人民币，最多两位小数）；未配置时会阻止提交且不会创建订单。草稿不保存收货信息，也不发起支付或履约。
-- 页面结构约定：新页面沿用首页的 ORBITAL 页面壳、`JellyRadio` 导航、动态背景和 `site-shell.css`，不再创建独立的旧版 Header。
+- `references/TraeWEBTEST/pages/`：首页、商品目录、商品详情、购物袋、结账及占卜页面。
+- `references/TraeWEBTEST/assets/`：JellyRadio 导航、商品卡、页面样式和动态背景资源。
+- `medusa-platform/`：Medusa v2 后端与管理后台。
+- `commerce/`、`database/`：Commerce Core 服务模块及 PostgreSQL 迁移文件；它与 Medusa 使用的数据库配置相互独立。
+- `server.mjs`：前台静态服务、会话购物袋 API 与 Medusa 代理网关。
+- `docs/`：产品范围、数据模型和实施规划。
 
-### 运行
+## 本地开发
+
+需要 Node.js `20.19+` 或 `22.12+`，并安装 pnpm。首次运行时，在项目根目录安装前台依赖并准备本地配置：
 
 ```powershell
 pnpm install
-pnpm dev
+Copy-Item .env.example .env.local
 ```
 
-然后打开 <http://localhost:3002>。
+如需连接 Medusa，请在 `.env.local` 中填写 Medusa 地址、Store API Publishable Key 和已创建的 Region ID。Publishable Key 可供前台使用；数据库连接串、管理员凭据及其他服务端密钥不得放入前端代码或提交到 Git。
 
-当前端口约定已经统一：
-
-- `3002`：唯一公共访问入口，也是当前静态网站的实际服务端口。
-- `3010`：未来 Storefront 服务的预留内部端口，当前版本未启用。
-- `9001`：未来 Commerce 服务的预留内部端口，当前版本未启用。
-
-### 页面
-
-- `/`：ORBITAL 首页
-- `/shop.html`：商品目录（当前为预览商品）
-- `/product.html?slug=ember-guard`：商品详情（当前为预览商品）
-- `/cart.html`：购物袋（Commerce Core 预览）
-- `/checkout.html`：结账信息确认与库存暂留预览
-- `/tarot.html`：塔罗牌阵
-- `/zodiac.html`：星座命盘
-- `/iching.html`：易经六爻
-- `/ghost-fibers`：动态背景单独预览
-- `/404.html`：统一 404 页面
-- `/robots.txt`、`/sitemap.xml`：基础搜索引擎入口
-- `/assets/*`：页面使用的脚本、样式与图片资源
-
-### 目录
-
-```text
-references/TraeWEBTEST/pages   静态页面
-references/TraeWEBTEST/assets  背景、组件脚本、样式与图片资源
-references/TraeWEBTEST/assets/data/products.json  当前视觉版商品数据基线
-commerce/                    服务端商品目录与购物袋校验基础层
-database/                     PostgreSQL 迁移与商品种子数据
-server.mjs                     3002 静态服务入口
-docs/                          项目审计与后续规划
-```
-
-当前 Commerce Core API：`GET /api/health`、目录读取、Session 购物袋读写、`POST /api/cart/quote`、`GET /api/checkout/shipping-quote`、`POST /api/cart/reserve`、`POST /api/checkout/prepare` 和当前 Session 的预占释放。库存消费由正式订单流程调用，公开接口不会直接扣减库存。当前工作区已配置 PostgreSQL 商品目录、商品变体库存、匿名 Session 购物袋和库存事务；未配置 `DATABASE_URL` 的环境会安全回退到视觉 JSON 基线。复制 `.env.example` 为 `.env.local` 后，可在 `ORBITAL_STANDARD_SHIPPING_FEE` 中设置统一普通配送费率；未配置时会禁用结账准备。
-
-当前仓库刻意不包含 `node_modules`、本地环境变量、证书/私钥以及已被删除的 `apps` 业务源码。后续若恢复真实商城、账户、订单和支付能力，应在本版本基础上重新规划服务边界与生产部署。
-
----
-
-## English
-
-ORBITAL is an independent-store visual baseline centered on astrology, divination, and natural crystal bracelets. This repository contains the currently runnable static website version, including the unified brand homepage, animated background, navigation interaction, product card flipping, and divination entry points.
-
-### Included in this version
-
-- GhostFibers WebGL fiber background used as the global visual background.
-- JellyRadio navigation for Home / Featured / Divination / Shop, keeping the spring-like interaction while using a transparent surrounding surface.
-- FlipCard product cards: product imagery on the front, and price plus a dark product image on the back with the original card-flip motion.
-- BorderGlow applied to the three divination cards, with the additional mouse-lift effect removed.
-- Static pages for the homepage, product catalog, product detail, Tarot, Zodiac, and I Ching.
-- Commerce Core foundation now includes a server-backed catalog API, a shopping-bag page, local bag state, and server-side quote validation; preview products remain unavailable for purchase.
-- Account and legacy store links no longer redirect to deleted legacy pages.
-
-### Phase status
-
-- Phase 2 — Design Preview: closed. Direction A remains the brand visual foundation, with clearer commercial information hierarchy applied to the storefront; the standalone design comparison page is intentionally not retained.
-- Phase 3 — Core UI: the desktop page shell, navigation, homepage, catalog, and product detail are unified; featured homepage products now use catalog data and link to detail pages. Mobile is deferred by decision.
-- Commerce Core: the catalog, session-backed bag, variants/SKUs, inventory reservation/release/consume transactions, quote APIs, and PostgreSQL migrations are ready. Checkout supports a server-configured flat standard-shipping rate via `ORBITAL_STANDARD_SHIPPING_FEE`; when unset, preparation is blocked without reserving stock. Orders, payments, and accounts remain deferred.
-- Page structure convention: new pages reuse the homepage ORBITAL shell, `JellyRadio` navigation, animated background, and `site-shell.css` instead of introducing a separate legacy header.
-
-### Run locally
+在第一个终端启动 Medusa 后端（先按下方说明准备后端环境变量和 PostgreSQL/Redis）：
 
 ```powershell
+Set-Location .\medusa-platform
 pnpm install
+Set-Location .\apps\backend
 pnpm dev
 ```
 
-Open <http://localhost:3002>.
+在第二个终端的项目根目录启动前台：
 
-The port contract is now explicit:
-
-- `3002`: the only public entry point and the active static-site server port.
-- `3010`: reserved internal Storefront port; not enabled in this version.
-- `9001`: reserved internal Commerce port; not enabled in this version.
-
-### Pages
-
-- `/`: ORBITAL homepage
-- `/shop.html`: preview product catalog
-- `/product.html?slug=ember-guard`: preview product detail
-- `/cart.html`: Commerce Core preview shopping bag
-- `/checkout.html`: checkout information and inventory-hold preview
-- `/tarot.html`: Tarot spread
-- `/zodiac.html`: Zodiac chart
-- `/iching.html`: I Ching reading
-- `/ghost-fibers`: standalone animated-background preview
-- `/404.html`: shared not-found page
-- `/robots.txt` and `/sitemap.xml`: basic search-engine entry points
-- `/assets/*`: page scripts, styles, and image assets
-
-### Repository scope
-
-```text
-references/TraeWEBTEST/pages   Static pages
-references/TraeWEBTEST/assets  Background, component, style, and image assets
-references/TraeWEBTEST/assets/data/products.json  Product-data baseline for this visual version
-commerce/                    Server-side catalog and bag validation foundation
-database/                     PostgreSQL migrations and catalog seed data
-server.mjs                     Static server entry on port 3002
-docs/                          Project audit and follow-up planning
+```powershell
+pnpm dev
 ```
 
-Current Commerce Core APIs include health and catalog reads, session bag reads and writes, `POST /api/cart/quote`, `GET /api/checkout/shipping-quote`, `POST /api/cart/reserve`, `POST /api/checkout/prepare`, and release of reservations owned by the current session. Set `ORBITAL_STANDARD_SHIPPING_FEE` to a non-negative CNY amount (up to two decimal places) to enable the single-rate standard-shipping quote; when unset, checkout preparation is blocked before inventory is reserved. Inventory consumption is reserved for the order flow; public callers cannot directly deduct stock. This workspace reads the PostgreSQL catalog, variant inventory, anonymous session-backed bags, and inventory transactions; environments without `DATABASE_URL` safely fall back to the visual JSON baseline.
+访问：
 
-`node_modules`, local environment files, certificates/private keys, and the deleted `apps` business source are intentionally excluded. If commerce, accounts, orders, or payments are restored later, rebuild those service boundaries and production deployment plans on top of this baseline.
+- 前台：<http://localhost:3002>
+- Medusa 管理后台：<http://localhost:9000/app>
+- Medusa API：<http://localhost:9000>
+- 前台网关健康检查：<http://localhost:3002/api/health>
+
+若只需查看前台视觉，可不启动 Medusa；目录会使用当前可用的数据源或预览数据。实际商品 API 与 Medusa 购物袋需要有效的 Medusa URL、Publishable Key 和 Region 配置。
+
+## Medusa 后端配置
+
+复制后端模板并编辑本地 `.env`：
+
+```powershell
+Set-Location .\medusa-platform\apps\backend
+Copy-Item .env.template .env
+```
+
+在 `apps/backend/.env` 中配置 Medusa 专用 PostgreSQL `DATABASE_URL`、Redis 地址，以及 `JWT_SECRET`、`COOKIE_SECRET` 等服务端变量。请为密钥生成独立的随机值，不要保留模板中的示例值。PostgreSQL 和 Redis 必须先运行。之后从 `medusa-platform/apps/backend` 执行 `pnpm dev`。
+
+管理后台可在登录后进入 **Settings → Profile → Language**，将当前管理员界面设为简体中文。该设置按管理员账号保存。
+
+更完整的后端说明见 [`medusa-platform/apps/backend/README.md`](medusa-platform/apps/backend/README.md)。
+
+## 页面
+
+| 路径 | 页面 |
+| --- | --- |
+| `/` | 首页 / 精选 / 占卜 / 寻物导航 |
+| `/shop.html` | 商品目录 |
+| `/product.html?slug=ember-guard` | 商品详情示例 |
+| `/cart.html` | 购物袋 |
+| `/checkout.html` | 结账预览 |
+| `/tarot.html` | 塔罗牌阵 |
+| `/zodiac.html` | 星座命盘 |
+| `/iching.html` | 易经六爻 |
+| `/ghost-fibers` | 动态背景预览 |
+
+所有新增前台页面应沿用首页页面结构、JellyRadio 导航和现有动效，不另建风格不同的导航栏。
+
+## 当前接入状态与上线前待办
+
+- Medusa v2 后端与前台网关已建立；前台可通过 Medusa Store API 读取商品，并为购物袋功能提供接入基础。
+- 当前目录中的商品为预览商品，库存为零或不可售；不能据此接受真实订单。
+- 创建目标市场的 Medusa Region，并确定币种、销售渠道和商品价格。
+- 配置真实库存、配送区域与费率。配送费率目前按此前决定暂不配置；未配置时结账应保持拦截。
+- 选择并配置支付服务商，完成订单、退款、税费、邮件通知及异常处理流程。
+- 配置正式域名、HTTPS、生产数据库/Redis、密钥管理、备份、监控和部署流水线。
+- 完成桌面端交易流程验收、安全检查及上线前测试。移动端目前暂缓。
+
+## 环境文件与安全
+
+- 前台本地配置：项目根目录 `.env.local`，模板为 `.env.example`。
+- Medusa 本地配置：`medusa-platform/apps/backend/.env`，模板为 `medusa-platform/apps/backend/.env.template`。
+- 环境文件、数据库密码、管理员密码、JWT/Cookie 密钥和私钥不得提交到仓库。提交前检查 `git status`，并确认忽略规则生效。
+- `.env.example` 和 `.env.template` 仅用于说明配置项；示例密钥不能用于部署。
+
+## 许可
+
+Medusa 后端模板保留其自身的 MIT 许可文件。ORBITAL 前台素材与其他项目代码的授权应以各自来源和仓库声明为准。
