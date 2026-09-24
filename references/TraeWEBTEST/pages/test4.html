@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>社会主义核心价值观</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "Microsoft YaHei", "微软雅黑", sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .poster {
+      min-height: 100vh;
+      padding: 38px 30px 55px;
+      background-image: url("./background.jpg");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 100% 100%;
+    }
+
+    .content {
+      width: min(820px, 100%);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .title {
+      margin: 0;
+      color: #ee1717;
+      font-family: "STKaiti", "KaiTi", "楷体", serif;
+      font-size: clamp(38px, 5vw, 58px);
+      font-weight: 900;
+      letter-spacing: 3px;
+      line-height: 1.25;
+      text-shadow: 1px 1px 0 #ee1717;
+    }
+
+    .slogan-list {
+      display: flex;
+      justify-content: center;
+      gap: 34px;
+      margin: 25px 0 32px;
+      padding: 0;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .slogan-list li {
+      padding: 2px 6px;
+      color: #ffffff;
+      background-color: #ff0000;
+      font-size: clamp(20px, 2.8vw, 29px);
+      font-weight: 700;
+      line-height: 1.15;
+      white-space: nowrap;
+    }
+
+    .value-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      color: #a91515;
+      font-family: "STKaiti", "KaiTi", "楷体", serif;
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 700;
+      letter-spacing: 4px;
+    }
+
+    .value-row {
+      display: grid;
+      grid-template-columns: 110px auto;
+      align-items: center;
+      column-gap: 18px;
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .category {
+      letter-spacing: 1px;
+    }
+
+    .values {
+      letter-spacing: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .poster {
+        padding: 28px 15px 45px;
+      }
+
+      .slogan-list {
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .value-row {
+        grid-template-columns: 88px auto;
+        column-gap: 8px;
+      }
+
+      .values {
+        letter-spacing: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="poster">
+    <section class="content">
+      <h1 class="title">☆社会主义核心价值观☆</h1>
+
+      <ul class="slogan-list">
+        <li>人民有信仰</li>
+        <li>民族有希望</li>
+        <li>国家有力量</li>
+      </ul>
+
+      <ul class="value-list">
+        <li class="value-row">
+          <span class="category">［国家］</span>
+          <span class="values">富强 民主 文明 和谐</span>
+        </li>
+
+        <li class="value-row">
+          <span class="category">［社会］</span>
+          <span class="values">自由 平等 公正 法治</span>
+        </li>
+
+        <li class="value-row">
+          <span class="category">［公民］</span>
+          <span class="values">爱国 敬业 诚信 友善</span>
+        </li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>

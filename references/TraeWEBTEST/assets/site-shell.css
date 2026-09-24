@@ -1,0 +1,137 @@
+:root {
+  --shell-bg: var(--bg, var(--orbital-bg-900, #0b0a11));
+  --shell-text: var(--text, var(--orbital-text-50, #f5f0ea));
+  --shell-muted: var(--muted, var(--orbital-text-400, #aaa2b3));
+  --shell-gold: var(--gold, var(--orbital-gold, #f0d797));
+}
+
+.site-shell-header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: 64px;
+  background: transparent;
+}
+
+.site-shell-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: min(1280px, calc(100% - 44px));
+  height: 64px;
+  margin: auto;
+}
+
+.site-shell-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--shell-text);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .04em;
+}
+
+.site-shell-brand__mark {
+  color: var(--shell-gold);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.site-shell-nav {
+  display: flex;
+}
+
+.site-shell-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.site-shell-language {
+  display: flex;
+  align-items: center;
+  color: var(--shell-muted);
+  font-size: 12px;
+}
+
+.site-shell-language span:first-child {
+  color: var(--shell-text);
+}
+
+.site-shell-language__slash {
+  margin: 0 6px;
+}
+
+.site-shell-cart {
+  display: grid;
+  place-items: center;
+  color: var(--shell-muted);
+  transition: color 180ms ease;
+}
+
+.site-shell-cart:hover {
+  color: var(--shell-text);
+}
+
+.site-shell-cart[aria-current='page'] {
+  color: var(--shell-gold);
+}
+
+.site-shell-cart[aria-current='page'] svg {
+  animation: site-shell-cart-active 560ms cubic-bezier(.22, 1.25, .36, 1) both;
+}
+
+@keyframes site-shell-cart-active {
+  0% { transform: scale(1); }
+  42% { transform: scale(1.18); }
+  72% { transform: scale(.96); }
+  100% { transform: scale(1.08); }
+}
+
+.site-shell-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: 999px;
+  color: var(--shell-bg);
+  background: var(--shell-gold);
+  font-size: 12px;
+  font-weight: 600;
+  transition: filter 180ms ease;
+}
+
+.site-shell-cta:hover {
+  filter: brightness(.95);
+}
+
+.site-shell-header + .page {
+  padding-top: 64px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-shell-cart[aria-current='page'] svg {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .site-shell-header__inner {
+    width: calc(100% - 28px);
+  }
+
+  .site-shell-nav,
+  .site-shell-language,
+  .site-shell-cta {
+    display: none;
+  }
+
+  .site-shell-actions {
+    margin-left: auto;
+  }
+
+  .site-shell-header + .page {
+    padding-top: 50px;
+  }
+}

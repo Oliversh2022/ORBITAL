@@ -4,8 +4,11 @@
   "private": true,
   "packageManager": "pnpm@11.21.0",
   "scripts": {
-    "dev": "node server.mjs",
-    "dev:gateway": "node server.mjs",
-    "serve:static": "node server.mjs"
+    "dev": "node --env-file-if-exists=.env.local server.mjs",
+    "dev:gateway": "node --env-file-if-exists=.env.local server.mjs",
+    "serve:static": "node --env-file-if-exists=.env.local server.mjs"
+  },
+  "dependencies": {
+    "pg": "^8.23.0"
   }
 }

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0a11">
+  <meta name="description" content="ORBITAL 结账信息确认。">
+  <title>结账｜ORBITAL</title>
+  <link rel="icon" href="/assets/orbital-favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/storefront.css">
+  <link rel="stylesheet" href="/assets/checkout.css">
+  <link rel="stylesheet" href="/assets/JellyRadio.css">
+  <link rel="stylesheet" href="/assets/site-shell.css">
+</head>
+<body>
+  <iframe class="fibers" data-deferred-src="/ghost-fibers.html" title="ORBITAL 动态背景" aria-hidden="true" tabindex="-1"></iframe>
+  <header id="header" class="site-shell-header">
+    <div class="site-shell-header__inner">
+      <a href="/" class="site-shell-brand"><span class="site-shell-brand__mark">✦</span><span>ORBITAL</span></a>
+      <nav class="site-shell-nav" aria-label="主导航">
+        <div class="jelly-radio" data-jelly-radio data-no-active="true" role="radiogroup" aria-label="主导航">
+          <a class="jelly-radio__chip" data-value="home" data-href="/#top" href="/#top" role="radio" aria-checked="false" data-on="false" tabindex="0"><span class="jelly-radio__skin">首页</span></a>
+          <a class="jelly-radio__chip" data-value="featured" data-href="/#products" href="/#products" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">精选</span></a>
+          <a class="jelly-radio__chip" data-value="explore" data-href="/#explore" href="/#explore" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">占卜</span></a>
+          <a class="jelly-radio__chip" data-value="shop" data-href="/shop.html" href="/shop.html" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">寻物</span></a>
+        </div>
+      </nav>
+      <div class="site-shell-actions">
+        <div class="site-shell-language"><span>中</span><span class="site-shell-language__slash">/</span><span>EN</span></div>
+        <a href="/cart.html" class="site-shell-cart" aria-label="返回购物袋" title="返回购物袋" aria-current="page"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 0-8 0"/></svg></a>
+        <a href="/#explore" class="site-shell-cta">开始占卜</a>
+      </div>
+    </div>
+  </header>
+  <main class="page checkout-page">
+    <section class="page-hero"><p class="eyebrow">ORBITAL / Checkout</p><h1>确认收货信息</h1><p>确认商品和配送信息。报价与库存通过校验后，将暂留库存 15 分钟；此步骤不会创建订单或收取款项。</p></section>
+    <div class="checkout-layout">
+      <form class="checkout-form" data-checkout-form>
+        <section class="checkout-panel">
+          <p class="checkout-step">01 / CONTACT</p><h2>联系人</h2>
+          <label>收件人姓名<input name="fullName" autocomplete="name" maxlength="100" required></label>
+          <label>联系电话<input name="phone" type="tel" autocomplete="tel" maxlength="30" required></label>
+        </section>
+        <section class="checkout-panel">
+          <p class="checkout-step">02 / DELIVERY</p><h2>配送地址</h2>
+          <div class="checkout-fields checkout-fields--three">
+            <label>省 / 直辖市<input name="province" autocomplete="address-level1" maxlength="80" required></label>
+            <label>城市<input name="city" autocomplete="address-level2" maxlength="80" required></label>
+            <label>区 / 县<input name="district" autocomplete="address-level3" maxlength="80" required></label>
+          </div>
+          <label>详细地址<input name="addressLine" autocomplete="street-address" maxlength="240" required></label>
+          <label>配送方式<select name="deliveryMethod" required><option value="standard">普通配送</option></select></label>
+          <p class="checkout-muted" data-shipping-note>正在载入普通配送报价…</p>
+        </section>
+        <div class="checkout-message" data-checkout-message role="status">正在核对购物袋和商品库存…</div>
+        <button class="action checkout-submit" type="submit" data-checkout-submit disabled>正在核对商品…</button>
+        <a class="checkout-back" href="/cart.html">← 返回购物袋</a>
+      </form>
+      <aside class="checkout-panel checkout-summary" data-checkout-summary aria-live="polite">
+        <p class="checkout-step">ORDER SUMMARY</p><h2>商品清单</h2>
+        <div data-checkout-lines><p class="checkout-muted">正在载入商品…</p></div>
+        <div class="checkout-total"><span>商品小计</span><strong data-checkout-subtotal>—</strong></div>
+        <div class="checkout-total checkout-total--pending"><span>配送费用</span><span data-checkout-shipping>待确认</span></div>
+        <div class="checkout-total checkout-total--grand"><span>应付总额</span><strong data-checkout-total>待确认</strong></div>
+        <p class="checkout-muted" data-checkout-total-note>最终总额将在配送费用配置后显示。</p>
+      </aside>
+    </div>
+  </main>
+  <footer class="footer"><div class="page footer-inner"><a href="/cart.html">返回购物袋</a><span>服务端报价 · 订单草稿，不发起支付</span></div></footer>
+  <script src="/assets/background-loader.js"></script>
+  <script src="/assets/JellyRadio.js"></script>
+  <script src="/assets/cart.js"></script>
+  <script src="/assets/checkout.js"></script>
+</body>
+</html>

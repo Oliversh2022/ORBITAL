@@ -4,9 +4,17 @@
   function initJellyRadio(root) {
     var chips = Array.prototype.slice.call(root.querySelectorAll('.jelly-radio__chip'));
     if (!chips.length) return;
-    var active = chips.findIndex(function (chip) { return chip.getAttribute('data-on') === 'true'; });
-    if (active < 0) active = 0;
+    var noActive = root.getAttribute('data-no-active') === 'true';
+    var active = noActive ? -1 : chips.findIndex(function (chip) { return chip.getAttribute('data-on') === 'true'; });
+    if (active < 0 && !noActive) active = 0;
+    if (!noActive && window.location.hash) {
+      var hashActive = chips.findIndex(function (chip) {
+        return chip.getAttribute('data-scroll-target') === window.location.hash;
+      });
+      if (hashActive >= 0) active = hashActive;
+    }
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var scrollSpyHoldUntil = 0;
 
     function springAnimation(chip, index, selected) {
       if (reduce || !chip.animate) return;
@@ -55,11 +63,74 @@
       }
     }
 
+    function prefetchPage(url) {
+      if (!url || url.charAt(0) === '#') return;
+      var absolute = new URL(url, window.location.href).href;
+      var alreadyPrefetched = Array.prototype.some.call(
+        document.querySelectorAll('link[rel="prefetch"]'),
+        function (link) { return link.href === absolute; }
+      );
+      if (alreadyPrefetched) return;
+      var link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.as = 'document';
+      link.href = absolute;
+      document.head.appendChild(link);
+    }
+
+    function scrollToTarget(selector, href) {
+      if (!selector) return false;
+      scrollSpyHoldUntil = Date.now() + 800;
+      if (selector === '#top') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        var target = document.querySelector(selector);
+        if (!target) return false;
+        var top = target.getBoundingClientRect().top + window.scrollY - 76;
+        window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+      }
+      if (href && window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', href);
+      }
+      return true;
+    }
+
+    function syncActiveWithScroll() {
+      if (Date.now() < scrollSpyHoldUntil) return;
+      var scrollChips = chips.filter(function (chip) {
+        return chip.getAttribute('data-scroll-target');
+      });
+      if (scrollChips.length < 2) return;
+      var marker = window.scrollY + 120;
+      var selected = scrollChips[0];
+      var selectedTop = 0;
+      scrollChips.forEach(function (chip) {
+        var selector = chip.getAttribute('data-scroll-target');
+        var top = selector === '#top'
+          ? 0
+          : (document.querySelector(selector) || {}).offsetTop;
+        if (typeof top !== 'number') return;
+        if (top <= marker && top >= selectedTop) {
+          selected = chip;
+          selectedTop = top;
+        }
+      });
+      var selectedIndex = chips.indexOf(selected);
+      if (selectedIndex >= 0 && selectedIndex !== active) select(selectedIndex, true);
+    }
+
     chips.forEach(function (chip, index) {
+      if (chip.getAttribute('data-prefetch') === 'true') {
+        var warmRoute = function () { prefetchPage(chip.getAttribute('data-href')); };
+        chip.addEventListener('pointerenter', warmRoute, { once: true, passive: true });
+        chip.addEventListener('focus', warmRoute, { once: true });
+      }
       chip.addEventListener('click', function (event) {
         event.preventDefault();
         select(index, true);
         var href = chip.getAttribute('data-href');
+        var scrollTarget = chip.getAttribute('data-scroll-target');
+        if (scrollTarget && scrollToTarget(scrollTarget, href)) return;
         if (href) window.location.href = href;
       });
       chip.addEventListener('keydown', function (event) {
@@ -76,7 +147,23 @@
       });
     });
 
-    select(active, false);
+    var hasScrollTargets = chips.some(function (chip) { return chip.getAttribute('data-scroll-target'); });
+    if (noActive) {
+      chips.forEach(function (chip, index) {
+        chip.setAttribute('data-on', 'false');
+        chip.setAttribute('aria-checked', 'false');
+        chip.setAttribute('data-near', 'false');
+        chip.tabIndex = index === 0 ? 0 : -1;
+      });
+    } else {
+      select(active, true);
+    }
+    if (hasScrollTargets) {
+      var scheduleScrollSync = function () { window.requestAnimationFrame(syncActiveWithScroll); };
+      window.addEventListener('scroll', scheduleScrollSync, { passive: true });
+      window.addEventListener('resize', scheduleScrollSync, { passive: true });
+      window.setTimeout(syncActiveWithScroll, 0);
+    }
   }
 
   function boot() {

@@ -92,7 +92,10 @@
 .flip-card__product-info { position: relative; z-index: 1; width: 100%; padding: 26px; }
 .flip-card__product-info h3 { margin: 0 0 8px; font-size: 22px; color: #f8d66d; }
 .flip-card__product-info p { margin: 0 0 18px; color: rgba(245,245,245,.72); font-size: 14px; line-height: 1.6; }
-.flip-card__product-price { color: #f8d66d; font-size: 20px; font-weight: 600; }
+.flip-card__product-actions { display: flex; align-items: center; gap: 26px; }
+.flip-card__product-price { display: inline-flex; color: #f8d66d; font-size: 20px; font-weight: 600; text-decoration: none; }
+.flip-card__product-detail:hover { text-decoration: underline; }
+.flip-card__product-detail { display: inline-flex; color: rgba(245,245,245,.82); font-size: 13px; text-decoration: none; }
 
 @media (prefers-reduced-motion: reduce) {
   .flip-card__rotor { transition: none !important; }

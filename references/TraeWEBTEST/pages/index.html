@@ -6,7 +6,11 @@
     <title>ORBITAL｜以星为引，寻物安心</title>
     <meta name="description" content="ORBITAL 将天然水晶、东方玄学与占卜体验相连，为你挑选每一件随身之物。">
     <meta name="theme-color" content="#120f17">
+    <style id="critical-background">html, body { background: #0b0a11 !important; }</style>
     <link rel="icon" href="../assets/orbital-favicon.svg" type="image/svg+xml">
+    <link rel="prefetch" href="shop.html" as="document">
+    <link rel="prefetch" href="../assets/storefront.css" as="style">
+    <link rel="prefetch" href="../assets/data/products.json" as="fetch" crossorigin>
         <link rel="stylesheet" href="../assets/orbital-apple.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.3.1/dist/index.global.js"></script>
     <script src="https://unpkg.com/lucide@1.8.0/dist/umd/lucide.min.js"></script>
@@ -127,6 +131,7 @@
       }
     </style>
     <link rel="stylesheet" href="../assets/JellyRadio.css" />
+    <link rel="stylesheet" href="../assets/site-shell.css" />
     <link rel="stylesheet" href="../assets/FlipCard.css" />
     <link rel="stylesheet" href="../assets/BorderGlow.css" />
     <style>
@@ -139,7 +144,7 @@
       }
     </style>
 </head>
-<body class="min-h-screen font-sans antialiased">
+<body id="top" class="min-h-screen font-sans antialiased">
     <style>.orbital-fibers-frame{position:fixed;z-index:0;inset:0;width:100%;height:100%;border:0;pointer-events:none}body{background:transparent!important}body>main{position:relative;z-index:1;background:transparent}</style>
     <iframe class="orbital-fibers-frame" src="ghost-fibers.html" title="Animated fiber background" aria-hidden="true" tabindex="-1"></iframe>
     
@@ -177,28 +182,30 @@
         </style>
 
         <!-- Sticky Header -->
-        <header id="header" class="fixed top-0 left-0 right-0 z-50" style="background: transparent; backdrop-filter: none;">
-            <div class="mx-auto px-6 h-16 flex items-center justify-between" style="max-width: var(--orbital-max-width)">
-                <a href="#" class="flex items-center gap-2 text-foreground">
-                    <span class="text-primary text-lg leading-none">✦</span>
+        <header id="header" class="site-shell-header fixed top-0 left-0 right-0 z-50" style="background: transparent; backdrop-filter: none;">
+            <div class="site-shell-header__inner mx-auto px-6 h-16 flex items-center justify-between" style="max-width: var(--orbital-max-width)">
+                <a href="#" class="site-shell-brand flex items-center gap-2 text-foreground">
+                    <span class="site-shell-brand__mark text-primary text-lg leading-none">✦</span>
                     <span class="font-sans tracking-wide text-sm font-semibold">ORBITAL</span>
                 </a>
-                <nav class="hidden md:flex" aria-label="主导航">
+                <nav class="site-shell-nav hidden md:flex" aria-label="主导航">
                     <div class="jelly-radio" data-jelly-radio role="radiogroup" aria-label="主导航">
-                        <a id="nav-explore" class="jelly-radio__chip" data-value="explore" data-href="#explore" href="#explore" role="radio" aria-checked="true" data-on="true" tabindex="0"><span class="jelly-radio__skin">占卜</span></a>
-                        <a id="nav-about" class="jelly-radio__chip" data-value="features" data-href="#features" href="#features" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">关于</span></a>
+                        <a id="nav-home" class="jelly-radio__chip" data-value="home" data-scroll-target="#top" data-href="#top" href="#top" role="radio" aria-checked="true" data-on="true" tabindex="0"><span class="jelly-radio__skin">首页</span></a>
+                        <a id="nav-featured" class="jelly-radio__chip" data-value="featured" data-scroll-target="#products" data-href="#products" href="#products" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">精选</span></a>
+                        <a id="nav-explore" class="jelly-radio__chip" data-value="explore" data-scroll-target="#explore" data-href="#explore" href="#explore" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">占卜</span></a>
+                        <a id="nav-shop" class="jelly-radio__chip" data-value="shop" data-prefetch="true" data-href="shop.html" href="shop.html" role="radio" aria-checked="false" data-on="false" tabindex="-1"><span class="jelly-radio__skin">寻物</span></a>
                     </div>
                 </nav>
-                <div class="flex items-center gap-4">
-                    <div class="hidden md:flex items-center text-xs text-muted-foreground">
+                <div class="site-shell-actions flex items-center gap-4">
+                    <div class="site-shell-language hidden md:flex items-center text-xs text-muted-foreground">
                         <span class="text-foreground cursor-pointer">中</span>
-                        <span class="mx-1.5">/</span>
+                        <span class="site-shell-language__slash mx-1.5">/</span>
                         <span class="hover:text-foreground cursor-pointer transition-colors">EN</span>
                     </div>
-                    <button class="text-muted-foreground hover:text-foreground transition-colors" aria-label="购物车">
+                    <a href="cart.html" class="site-shell-cart text-muted-foreground hover:text-foreground transition-colors" aria-label="购物袋">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                    </button>
-                    <a id="cta-header-explore" href="#explore" class="hidden md:inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">开始占卜</a>
+                    </a>
+                    <a id="cta-header-explore" href="#explore" class="site-shell-cta hidden md:inline-flex items-center rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">开始占卜</a>
                 </div>
             </div>
         </header>
@@ -292,38 +299,38 @@
                     <h2 class="text-3xl md:text-4xl tracking-tight text-foreground" style="font-family: var(--orbital-font-display)">为本命挑选</h2>
                 </div>
                 <div class="grid md:grid-cols-3 gap-6 lg:gap-8 items-center">
-                    <article class="reveal flex justify-center" style="--reveal-index: 0;">
-                        <div class="flip-card" data-flip-card data-axis="y" data-flip-on-click="true" data-draggable data-tilt-max="12" data-hover-scale="1.03" data-perspective="1100" data-stiffness="170" data-damping="20" aria-label="翻转查看余烬守护">
+                    <article class="reveal flex justify-center" data-home-product data-product-slug="ember-guard" style="--reveal-index: 0;">
+                        <div class="flip-card" data-flip-card data-axis="y" data-flip-on-click="true" data-draggable data-tilt-max="12" data-hover-scale="1.03" data-perspective="1100" data-stiffness="170" data-damping="20" aria-label="翻转查看余烬守护，点击价格或详情按钮进入商品详情">
                             <div class="flip-card__shadow" aria-hidden="true"></div>
                             <div class="flip-card__rotor">
                                 <div class="flip-card__face flip-card__face--front flip-card__product-front"><img src="../assets/ember-guard.png" alt="余烬守护"></div>
                                 <div class="flip-card__face flip-card__face--back flip-card__product-back">
                                     <img src="../assets/ember-guard.png" alt="">
-                                    <div class="flip-card__product-info"><h3>余烬守护</h3><p>黑曜石与红玛瑙，守护边界与心力。</p><span class="flip-card__product-price">¥ 1,280</span></div>
+                                    <div class="flip-card__product-info"><h3>余烬守护</h3><p>黑曜石与红玛瑙，守护边界与心力。</p><div class="flip-card__product-actions"><span class="flip-card__product-price">¥ 1,280</span><a class="flip-card__product-detail" data-product-link href="product.html?slug=ember-guard">查看详情 <span aria-hidden="true">→</span></a></div></div>
                                 </div>
                             </div>
                         </div>
                     </article>
-                    <article class="reveal flex justify-center" style="--reveal-index: 1;">
-                        <div class="flip-card" data-flip-card data-axis="y" data-flip-on-click="true" data-draggable data-tilt-max="12" data-hover-scale="1.03" data-perspective="1100" data-stiffness="170" data-damping="20" aria-label="翻转查看静水">
+                    <article class="reveal flex justify-center" data-home-product data-product-slug="stillwater" style="--reveal-index: 1;">
+                        <div class="flip-card" data-flip-card data-axis="y" data-flip-on-click="true" data-draggable data-tilt-max="12" data-hover-scale="1.03" data-perspective="1100" data-stiffness="170" data-damping="20" aria-label="翻转查看静水，点击价格或详情按钮进入商品详情">
                             <div class="flip-card__shadow" aria-hidden="true"></div>
                             <div class="flip-card__rotor">
                                 <div class="flip-card__face flip-card__face--front flip-card__product-front"><img src="../assets/stillwater.png" alt="静水"></div>
                                 <div class="flip-card__face flip-card__face--back flip-card__product-back">
                                     <img src="../assets/stillwater.png" alt="">
-                                    <div class="flip-card__product-info"><h3>静水</h3><p>海蓝宝与月光石，平复情绪之流。</p><span class="flip-card__product-price">¥ 980</span></div>
+                                    <div class="flip-card__product-info"><h3>静水</h3><p>海蓝宝与月光石，平复情绪之流。</p><div class="flip-card__product-actions"><span class="flip-card__product-price">¥ 980</span><a class="flip-card__product-detail" data-product-link href="product.html?slug=stillwater">查看详情 <span aria-hidden="true">→</span></a></div></div>
                                 </div>
                             </div>
                         </div>
                     </article>
-                    <article class="reveal flex justify-center" style="--reveal-index: 2;">
-                        <div class="flip-card" data-flip-card data-axis="y" data-flip-on-click="true" data-draggable data-tilt-max="12" data-hover-scale="1.03" data-perspective="1100" data-stiffness="170" data-damping="20" aria-label="翻转查看轨道之星">
+                    <article class="reveal flex justify-center" data-home-product data-product-slug="the-stargazer" style="--reveal-index: 2;">
+                        <div class="flip-card" data-flip-card data-axis="y" data-flip-on-click="true" data-draggable data-tilt-max="12" data-hover-scale="1.03" data-perspective="1100" data-stiffness="170" data-damping="20" aria-label="翻转查看轨道之星，点击价格或详情按钮进入商品详情">
                             <div class="flip-card__shadow" aria-hidden="true"></div>
                             <div class="flip-card__rotor">
                                 <div class="flip-card__face flip-card__face--front flip-card__product-front"><img src="../assets/orbital-hero.png" alt="轨道之星"></div>
                                 <div class="flip-card__face flip-card__face--back flip-card__product-back">
                                     <img src="../assets/orbital-hero.png" alt="">
-                                    <div class="flip-card__product-info"><h3>轨道之星</h3><p>紫水晶与黄水晶，接引直觉与丰盛。</p><span class="flip-card__product-price">¥ 1,580</span></div>
+                                    <div class="flip-card__product-info"><h3>轨道之星</h3><p>紫水晶与黄水晶，接引直觉与丰盛。</p><div class="flip-card__product-actions"><span class="flip-card__product-price">¥ 1,580</span><a class="flip-card__product-detail" data-product-link href="product.html?slug=the-stargazer">查看详情 <span aria-hidden="true">→</span></a></div></div>
                                 </div>
                             </div>
                         </div>
@@ -490,6 +497,7 @@
     </style>
     <script src="../assets/JellyRadio.js"></script>
     <script src="../assets/FlipCard.js"></script>
+    <script src="../assets/home-products.js"></script>
     <script src="../assets/BorderGlow.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
